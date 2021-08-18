@@ -38,6 +38,7 @@ export default {
           type: 'bar',
           data: [null, 20, 36, 10, 10, 20],
         }],
+        color:['#49583f']
       });
     let myChart;
     function drawChart() {

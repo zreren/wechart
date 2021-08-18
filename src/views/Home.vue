@@ -1,17 +1,24 @@
 <template>
   <div class="home">
-    <Main/>
+    <home-banner/>
+    <home-nav/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Main from '@/components/Main.vue'
+import HomeBanner from '@/components/Home/HomeBanner.vue'
+import HomeNav from '@/components/Home/HomeNav.vue'
 
 export default {
   name: 'Home',
   components: {
-    Main
+    HomeBanner,
+    HomeNav
   }
 }
 </script>
+
+
+<style scoped>
+</style>

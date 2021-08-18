@@ -58,7 +58,7 @@ export default {
             position: absolute;
             width: 100vw;
             padding: 240px;
-            /* font-family: 'Ubuntu'; */
+            font-family: 'Ubuntu';
             top: 88px;
             /* or 75% */
             text-align: center;

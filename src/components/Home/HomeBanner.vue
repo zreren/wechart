@@ -7,8 +7,8 @@
             <h1>Produce your data quicker and simpler</h1>
             <h2>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
 mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</h2>
-            <el-button class="bannerBtn1" @click="$router.push('/signup')">立即注册</el-button>
-            <el-button type = "primary" class="bannerBtn2" @click="$router.push('/edit')">绘制图表</el-button>
+            <el-button class="bannerBtn" @click="$router.push('/signup')">立即注册</el-button>
+            <el-button type = "primary" class="bannerBtn" @click="$router.push('/edit')">绘制图表</el-button>
         </div>
     </header>
     </div>
@@ -70,10 +70,10 @@ export default {
             }
             h2 {
                 font-size: 20px;
-                font-weight: 200;
+                font-weight: 250;
             }
         }
-        .bannerBtn1, .bannerBtn2{
+        .bannerBtn{
             margin-top: 80px;
             width: 220px;
             height: 40px;

@@ -4,16 +4,16 @@
 
   <el-col :span="16">
   <div class="detailcontainer">
-      <div class="text">
+  <div class="text">
           <h1>Light, Fast & Powerful</h1>
           <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
-mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</h5>
- </div>
-  
+                mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+          </h5>
+  </div>
   <div class="detail-right">
       <div class="pic">pic-test</div>
-    </div>
   </div>
+</div>
   </el-col>
   
  <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>

@@ -5,6 +5,7 @@ const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
 const ShareDetail = () => import('../views/ShareDetail.vue')
 const BlogDetail = () => import('../views/BlogDetail')
+const Login = () => import('../views/Login.vue')
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/blog/detail',
     name: 'BlogDetail',
     component:BlogDetail
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component:Login
   }
 ]
 

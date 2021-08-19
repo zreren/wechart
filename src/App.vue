@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header">
 
   <router-link to="/">主页</router-link>
   <home-header  v-show="$route.name !== 'Edit'">
@@ -20,8 +20,8 @@ export default {
 }
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+<style lang = 'less'>
+@import "./common/font/Ubuntu.css";
 * {
   padding: 0;
   margin: 0;
@@ -33,4 +33,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.header {
+  background: #ffffff;
+  
+  }
 </style>

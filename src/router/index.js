@@ -5,6 +5,7 @@ const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
 const ShareDetail = () => import('../views/ShareDetail.vue')
 const BlogDetail = () => import('../views/BlogDetail')
+
 const routes = [
   {
     path: '/',

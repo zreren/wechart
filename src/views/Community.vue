@@ -1,14 +1,14 @@
 <template>
-  <p>这是Community</p>
-  <button @click="$router.push('/edit')">to edit</button>
+  <h1>这是Community</h1>
+  <el-button @click="$router.push('/share/detail')">to detail</el-button>
 </template>
 
 <script>
 export default {
-    
-}
-</script>
 
-<style>
+}
+</script> 
+
+<style lang="less" scoped>
 
 </style>

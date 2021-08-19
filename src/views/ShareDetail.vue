@@ -1,5 +1,5 @@
 <template>
-  <p>这是Edit</p>
+  这是分享详情
 </template>
 
 <script>

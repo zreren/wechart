@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 const Explore = () => import('../views/Explore.vue')
 const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
+const ShareDetail = () => import('../views/ShareDetail.vue')
+const BlogDetail = () => import('../views/BlogDetail')
 const routes = [
   {
     path: '/',
@@ -23,6 +25,16 @@ const routes = [
     path: '/community',
     name: 'Community',
     component:Community
+  },
+  {
+    path: '/share/detail',
+    name: 'ShareDetail',
+    component:ShareDetail
+  },
+  {
+    path: '/blog/detail',
+    name: 'BlogDetail',
+    component:BlogDetail
   }
 ]
 

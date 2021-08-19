@@ -1,6 +1,6 @@
 <template>
     <el-row :gutter="20">
-  <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+    <!-- <el-col :span="4"><div class="grid-content bg-purple"></div></el-col> -->
 
   <el-col>
   <!-- <el-row :gutter="16" class="navcontainer">
@@ -13,7 +13,7 @@
   <div class="navbox">生成图表</div>
   <!-- </el-col>
   <el-col :span="6"><div class="grid-content bg-purple"></div> -->
-   <div class="navbox">数据广场</div>
+  <div class="navbox">数据广场</div>
    <!-- </el-col>
   </el-row>
   </el-col> -->
@@ -39,6 +39,7 @@ export default {
 
 <style lang="less" scoped>
 .navcontainer{
+    margin:60p;
     display: flex;
     justify-content: center;
 }
@@ -46,10 +47,10 @@ export default {
      display: flex;
      justify-content: center;
      align-content: center;
-     margin: 60px;
+     margin: 80px 60px 80px 0px;
      align-items: center;
-     width: 300px;
-     height: 440px;
+     width: 240px;
+     height: 300px;
      background-color: #EAEFF6;
  }
 

@@ -1,14 +1,14 @@
 <template>
-    <el-row :gutter="20">
+  <el-row :gutter="20">
   <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
 
   <el-col :span="16">
   <div class="detailcontainer">
       <div class="text">
-          <div1>Light, Fast & Powerful</div1>
+          <h1>Light, Fast & Powerful</h1>
           <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
 mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</h5>
-</div>
+ </div>
   
   <div class="detail-right">
       <div class="pic">pic-test</div>
@@ -42,7 +42,7 @@ export default {
      display: flex;
      justify-content: center;
      align-content: center;
-     margin: 60px;
+    //  margin: 60px;
      align-items: center;
      width: 300px;
      height: 440px;
@@ -63,7 +63,8 @@ export default {
 h5{
     font-weight: lighter;
     width: 400px;
-    margin: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
     font-size: 20px;
 }
 div1{

@@ -6,6 +6,8 @@ const Community = () => import('../views/Community.vue')
 const ShareDetail = () => import('../views/ShareDetail.vue')
 const BlogDetail = () => import('../views/BlogDetail')
 const Login = () => import('../views/Login.vue')
+const ChartType = () => import('../components/Edit/ChartType.vue')
+const ChartEdit = () => import('../components/Edit/ChartEdit.vue')
 
 const routes = [
   {
@@ -21,7 +23,19 @@ const routes = [
   {
     path: '/edit',
     name: 'Edit',
-    component:Edit
+    component:Edit,
+    children:[
+        {
+          path: '/edit',
+          name: 'ChartType',
+          component:ChartType,
+        },
+        {
+          path: '/edit/chart/edit',
+          name: 'ChartEdit',
+          component:ChartEdit,
+        }
+    ],
   },
   {
     path: '/community',

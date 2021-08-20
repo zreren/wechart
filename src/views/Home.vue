@@ -17,7 +17,7 @@ export default {
   components: {
     HomeBanner,
     HomeNav,
-    HomeDetail
+    HomeDetail,
   }
 }
 </script>

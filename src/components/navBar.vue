@@ -1,7 +1,7 @@
 <template>
     <div v-if="$route.name !== 'Home'" class="zhanwei"></div>
     <main class="header">
-    <home-header class="homeHeader" v-show="$route.name !== 'Edit'">
+    <home-header class="homeHeader" v-show="isShow">
     <el-menu  :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
     <el-menu-item  @click="$router.push('/')" index="1">主页</el-menu-item>    
     <el-menu-item  @click="$router.push('/explore')" index="2">发现</el-menu-item>
@@ -15,13 +15,32 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 export default {
     name:'navBar',
     setup() {
+        const route = useRoute()
+        
         const activeIndex = ref('1');
+        const isShow = ref(true)
+        
+        
+        /**
+         * 判断当前页面是否需要显示主页，发现，广场
+         */
+        watch(
+            ()=>route.name,
+            ()=>{
+                if( new RegExp('(^Edit)|ChartType|ChartEdit').test(route.name))
+                isShow.value = false
+                else
+                isShow.value = true
+            }
+        )
         return {
         activeIndex,
+        isShow
         };
     }
 }

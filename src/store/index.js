@@ -1,8 +1,9 @@
 import { createStore } from 'vuex'
+import state from './state.js'
+
 
 export default createStore({
-  state: {
-  },
+  state,
   mutations: {
   },
   actions: {

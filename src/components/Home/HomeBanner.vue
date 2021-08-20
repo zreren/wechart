@@ -74,6 +74,7 @@ export default {
             padding: 0;
         }
     }
+
     @media (max-width: 1200px) { 
         .banner {
             .content {
@@ -82,11 +83,12 @@ export default {
         }
      }
 
-     @media (max-width: 768px) { 
+    @media (max-width: 768px) { 
         .banner {
             .content {
                 padding: 60px;
             }
         }
-     }
+    }
+
 </style>

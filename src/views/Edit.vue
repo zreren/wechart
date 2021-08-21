@@ -83,6 +83,7 @@
 import { useStore } from 'vuex'
 import EditMain from '../components/Edit/EditMain.vue'
 import DataEdit from '../components/Edit/DataEdit.vue'
+import { useRoute } from 'vue-router'
 export default {
     name:'Edit',
     components: {
@@ -91,17 +92,19 @@ export default {
     },
     setup() {
       const store = useStore()
-      
+      const route = useRoute()
       /**
        * 防止意外刷新和关闭页面
        */
       window.onbeforeunload=function(e){     
-        e = e || window.event;
-        if (e) {
-            // 兼容IE8和Firefox 4之前的版本
-            e.returnValue = "当前内容未保存，确认离开？";
+        if(route.name == 'ChartType' || route.name == 'ChartEdit'){
+          e = e || window.event;
+          if (e) {
+              // 兼容IE8和Firefox 4之前的版本
+              e.returnValue = "当前内容未保存，确认离开？";
+          }
+          return "当前内容未保存，确认离开？";
         }
-        return "当前内容未保存，确认离开？";
       }
 
 

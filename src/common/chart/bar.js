@@ -24,9 +24,9 @@ const Bar = ref({
     series: [{
       name: '销量',
       type: 'bar',
-      data: [null, 20, 36, 10, 10, 20],
+      data: [18, 20, 36, 10, 10, 20],
     }],
-    color:['#49583f']
+    color:['#a6d2e5']
   });
 
 export {Bar} 

@@ -8,7 +8,7 @@ const BlogDetail = () => import('../views/BlogDetail')
 const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartEdit = () => import('../components/Edit/ChartEdit.vue')
-
+const body = ()=>import('../components/Explorechild/body.vue')
 const routes = [
   {
     path: '/',
@@ -18,7 +18,14 @@ const routes = [
   {
     path: '/explore',
     name: 'Explore',
-    component:Explore
+    component:Explore,
+    children:[
+      {
+        path: '/explore/:str',
+        naem: "all",
+        component:body
+      }
+    ]
   },
   {
     path: '/edit',
@@ -47,10 +54,10 @@ const routes = [
     name: 'ShareDetail',
     component:ShareDetail
   },
-  {
+  { 
     path: '/blog/detail',
     name: 'BlogDetail',
-    component:BlogDetail
+    component:BlogDetail,
   },
   {
     path: '/login',

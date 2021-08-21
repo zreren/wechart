@@ -10,6 +10,7 @@
     <div class="userImg"></div>
     <el-button style="margin-right:28px" size="medium"  type="primary" round @click="$router.push('/edit')">制图</el-button>
     </home-header>
+    <div class="userImg" v-show="!isShow"></div>
     <router-link to="/" class="logo">WeChart</router-link>
     </main>
 </template>

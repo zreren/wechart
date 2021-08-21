@@ -1,13 +1,21 @@
 <template>
-  这是Blog详情
+  <div class="container">
+  </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
 
+    }
+  },
+  components: {
+
+  }
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped lang="scss">
 
 </style>

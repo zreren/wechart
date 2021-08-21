@@ -1,15 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an Explore Page</h1>
+  <div class="main">
+    <Content></Content>
   </div>
-  <el-button @click="$router.push('/blog/detail')">详情</el-button>
-  
-  {{$store.state.name}}
 </template>
 
 <script>
+import Content from '../components/Explorechild/content'
 export default {
   components:{
+     Content
   },
   setup() {
     
@@ -19,5 +18,9 @@ export default {
 
 
 <style lang="less" scoped>
-
+.main{
+  width: 100vw;
+  height:auto;
+  overflow: hidden;
+}
 </style>

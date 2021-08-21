@@ -1,5 +1,5 @@
 <template>
-  main
+  基础图表类型：{{$store.state.preChartType}}
 </template>
 
 <script>

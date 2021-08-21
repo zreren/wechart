@@ -1,5 +1,5 @@
 const state =  {
-    name:'xiaoming'
+    preChartType:''
 }
 
 export default state 

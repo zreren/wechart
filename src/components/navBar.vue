@@ -16,19 +16,23 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
     name:'navBar',
     setup() {
         const route = useRoute()
         
-        const activeIndex = ref('1');
+        const activeIndex = ref(0);
         const isShow = ref(true)
-        
-        
+        const routerNow = {
+                    Home:1,
+                    Explore:2,
+                    Community:3
+                }
         /**
          * 判断当前页面是否需要显示主页，发现，广场
+         * 根据路由变化更改当前el-menu的index
          */
         watch(
             ()=>route.name,
@@ -37,8 +41,20 @@ export default {
                 isShow.value = false
                 else
                 isShow.value = true
+
+                if(routerNow[route.name])
+                activeIndex.value = routerNow[route.name]
             }
         )
+
+        /**
+         * 优化刷新时的el-menu的index跳转 
+         */
+        onBeforeMount(()=>{
+            if(routerNow[route.name])
+                activeIndex.value = routerNow[route.name]
+        })
+
         return {
         activeIndex,
         isShow
@@ -52,7 +68,7 @@ export default {
         text-decoration: none;
     }
     .zhanwei {
-        height: 66px;
+        height: 60px;
     }
     .header {
         z-index: 7;

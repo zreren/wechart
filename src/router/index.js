@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import { ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 const Explore = () => import('../views/Explore.vue')
 const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
@@ -66,9 +68,37 @@ const routes = [
   }
 ]
 
+
+
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to,from)=>{
+  if(from.name === 'ChartType' || from.name === 'ChartEdit')
+  {
+    if(to.name !== 'ChartType' && to.name !== 'ChartEdit')
+    {
+      try{
+        await ElMessageBox.confirm('此操作将清空当前修改,是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+      return true
+      }
+      catch(err) {
+        ElMessage({
+          type:'info',
+          message:'已取消跳转'
+        })
+        return false
+      }
+    }
+  }
+  return true
 })
 
 export default router

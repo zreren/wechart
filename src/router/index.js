@@ -22,7 +22,7 @@ const routes = [
     children:[
       {
         path: '/explore/:str',
-        naem: "all",
+        name:'body',
         component:body
       }
     ]

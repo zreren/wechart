@@ -1,5 +1,5 @@
 <template>
-  <div id="main" style="width: 600px;height:400px;"></div>
+  <div id="main">111</div>
 </template>
 
 <script>
@@ -42,5 +42,8 @@ export default {
 </script>
 
 <style lang = "less" scoped> 
-
+  #main {
+    background: yellow;
+    height: 500px;
+  }
 </style>

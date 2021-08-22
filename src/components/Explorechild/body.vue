@@ -68,17 +68,19 @@ export default {
 
     .content{
         overflow: hidden;
-        display: block;
         margin-top: 1vh;
         width: 100%;
+        display: flex;
+        align-items: center;
+       justify-items: center;
         height:auto;
         .showImage:hover {cursor:pointer}
         .showImage{
-            float: left;
+          
         }
         .showMessage > *:hover{cursor:pointer}
         .showMessage{
-            float: left;
+            
             color: #233062;
             .title{
                 color: #C9D0E1;

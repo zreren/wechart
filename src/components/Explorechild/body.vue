@@ -5,7 +5,7 @@
           <div class="showImage">
               <img src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/8313889093d1a638_1629530133006.png" alt="" height="150">
           </div>
-          <div class="showMessage" @click=" textLink" >
+          <div class="showMessage" @click=" textLink(item._id)" >
               <div class="title">
                   <span>{{ item.autho}}</span>| <span>{{item.createdAt}}</span>|<span>{{item.c_type}}</span>|<span>图表类型：{{item.pic_type}}</span>
              </div>
@@ -23,7 +23,8 @@
 
 <script>
 import {onMounted,toRefs,reactive} from "vue"
-import { getExplioreInfo } from "../../api/Expliore"
+import {  getExpore } from "../../api/Expliore"
+import {useRouter} from 'vue-router'
 export default {
   data () {
     return {
@@ -37,23 +38,26 @@ export default {
 
   },
   setup(){
+      const router = useRouter()
       const data = reactive({
           infoData:{}
       })
       onMounted(()=>{
-          getExplioreInfo().then(res=>{
+          getExpore().then(res=>{
               console.log(res.result)
               data.infoData= res.result
           })
       })
+      function textLink(id){
+         router.push({path:`/blog/detail/${id}` })
+      }
       return{
+          textLink,
           ...toRefs(data)
       }
   }, 
   methods: {
-      textLink(){
-         this.$router.push({path:'/blog/detail',params: { id: this.id } })
-      }
+     
   }
 }
 </script>

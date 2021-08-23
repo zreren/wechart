@@ -63,7 +63,7 @@ const routes = [
     component:ShareDetail
   },
   { 
-    path: '/blog/detail',
+    path: '/blog/detail/:id',
     name: 'BlogDetail',
     component:BlogDetail,
   },

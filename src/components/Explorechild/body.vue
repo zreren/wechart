@@ -80,9 +80,9 @@ export default {
        justify-items: center;
         height:auto;
         .showImage:hover {cursor:pointer}
-        .showImage{
+        // .showImage{
           
-        }
+        // }
         .showMessage > *:hover{cursor:pointer}
         .showMessage{
             

@@ -6,6 +6,7 @@
     <el-menu-item  @click="$router.push('/')" index="1">主页</el-menu-item>    
     <el-menu-item  @click="$router.push('/explore')" index="2">发现</el-menu-item>
     <el-menu-item  @click="$router.push('/community')" index="3">广场</el-menu-item>
+    <el-menu-item  @click="$router.push('/writing')" index="4">分享啦~</el-menu-item>
     </el-menu>
     <div class="userImg"></div>
     <el-button style="margin-right:14px" size="medium"  type="primary" round @click="$router.push('/edit')">制图</el-button>

@@ -1,21 +1,22 @@
 import { request } from './request'
-export function getExplioreInfo() {
+export function getExpore() {
   return request({
     url: '/getExplore',
     method: 'post',
   })
 }
-// export function login (data) {
-//   return request({
-//     url: '/test11111111111111',
-//     method: 'post',
-//     data
-//   })
-// }
+//编辑一面的提交
+export function SubEditor (data) {
+  return request({
+    url: '/subEditor',
+    method: 'post',
+    data
+  })
+}
 
-// export function reguest () {
-//   return request({
-//     url: '/test11111111111111',
-//     method: 'post'
-//   })
-// }
+export function getExploreInfo () {
+  return request({
+    url: '/getExploreInfo',
+    method: 'post'
+  })
+}

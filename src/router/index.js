@@ -7,6 +7,7 @@ const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
 const ShareDetail = () => import('../views/ShareDetail.vue')
 const BlogDetail = () => import('../views/BlogDetail')
+const Writing = () => import('../views/Writing')
 const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartEdit = () => import('../components/Edit/ChartEdit.vue')
@@ -28,6 +29,11 @@ const routes = [
         component:body
       }
     ]
+  },
+  {
+    path: '/writing',
+    name: 'writing',
+    component: Writing
   },
   {
     path: '/edit',
@@ -57,7 +63,7 @@ const routes = [
     component:ShareDetail
   },
   { 
-    path: '/blog/detail',
+    path: '/blog/detail/:id',
     name: 'BlogDetail',
     component:BlogDetail,
   },

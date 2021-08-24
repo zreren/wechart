@@ -3,8 +3,8 @@
         <img class="bannerImage" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/72d3596d8935c1d4_1629282175658.png" alt="bannerBackgroudImage">
         <div class="mask"></div>
         <div class="content">
-            <h1>Produce your data quicker and simpler</h1>
-            <h2>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</h2>
+            <h1>更快更便捷的在线数据处理服务</h1>
+            <h2>在线编辑数据，动态呈现图表在线编辑数据，动态呈现图表在线编辑数据，动态呈现图表在线编辑数据，动态呈现图表在线编辑数据，动态呈现图表</h2>
             <el-button class="bannerBtn" @click="$router.push('/signup')">立即注册</el-button>
             <el-button type = "primary" class="bannerBtn" @click="$router.push('/edit')">绘制图表</el-button>
         </div>
@@ -50,7 +50,7 @@ export default {
             position: absolute;
             box-sizing: border-box;
             padding: 240px;
-            padding-top: 12%;
+            padding-top: 15%;
             font-family: 'Ubuntu';
             top: 88px;
             text-align: center;
@@ -58,11 +58,12 @@ export default {
             h1 {
                 margin-bottom: 18px;
                 font-size: 48px;
-                font-weight: 400;
+                font-weight: 500;
             }
             h2 {
                 font-size: 20px;
                 font-weight: 250;
+                margin-bottom: 40px;
             }
         }
         .bannerBtn{
@@ -72,6 +73,9 @@ export default {
             border-radius: 10px;
             font-size: 18px;
             padding: 0;
+        }
+        .el-button{
+            margin:20px;
         }
     }
 

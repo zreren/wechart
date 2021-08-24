@@ -98,7 +98,7 @@ export default {
            .liStyle{
                text-decoration: none;
               margin: 1vh 1vw;
-              color: #C5CDDF;
+              color: #A9B4C1;
             }
             .liStyle:hover{
                   color: #2F80ED;

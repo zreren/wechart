@@ -1,8 +1,8 @@
 <template>
     <el-row >
-    <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8" ><div class="navbox" id="leftcard">学习发现</div></el-col>
-    <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8" > <div class="navbox">生成图表</div></el-col>
-    <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8" ><div class="navbox" id="rightcard">数据广场</div></el-col>
+    <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8" ><div class="navbox" id="leftcard">学习发现</div></el-col>
+    <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8" > <div class="navbox">生成图表</div></el-col>
+    <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8" ><div class="navbox" id="rightcard">数据广场</div></el-col>
   <!-- <el-row :gutter="16" class="navcontainer">
   <el-col :span="6"><div class="grid-content bg-purple"></div> -->
     <!-- <div class="navcontainer"> -->

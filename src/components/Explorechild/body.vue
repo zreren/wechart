@@ -136,7 +136,7 @@ export default {
             float: left;
             color: #233062;
             .title{
-                color: #C9D0E1;
+                color: #A9B4C1;
                 padding: 1vh 1vw;
                 span{
                     margin: 0 5px;

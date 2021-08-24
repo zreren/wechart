@@ -3,8 +3,10 @@
     <el-container>
       
       <el-aside>
-        <router-link to="/edit">图表</router-link>|
-        <router-link to="/edit/chart/edit">设置</router-link><br>
+        <div class="menuType">
+          <span id="menuTypeItem1" class="menuActive"  @click="changeMenuType(1)">图标</span>
+          <span id="menuTypeItem2" @click="changeMenuType(2)">设置</span>
+        </div>
         <router-view></router-view>
       </el-aside>
       <el-container>
@@ -25,6 +27,7 @@
 import EditMain from '../components/Edit/EditMain.vue'
 import DataEdit from '../components/Edit/DataEdit.vue'
 import CheckBox from '../components/Edit/CheckBox.vue'
+import {useRouter} from 'vue-router'
 export default {
     name:'Edit',
     components: {
@@ -33,6 +36,7 @@ export default {
       CheckBox 
     },
     setup() {
+      const route = useRouter()
       /**
        * 防止意外刷新和关闭页面
        */
@@ -46,7 +50,28 @@ export default {
       //     return "当前内容未保存，确认离开？";
       //   }
       // }
+
+      /**
+       * 设置工具栏的活跃状态
+       */
+      function changeMenuType(index) {
+        if(index == 1){
+          document.getElementById('menuTypeItem1').classList.add('menuActive')
+          document.getElementById('menuTypeItem2').classList.remove('menuActive')
+          route.push('/edit')
+        }
+        else{
+          document.getElementById('menuTypeItem2').classList.add('menuActive')
+          document.getElementById('menuTypeItem1').classList.remove('menuActive')
+          route.push('/edit/chart')
+        }
+
+
+        
+
+      }
       return {
+        changeMenuType
       }
     }
 }
@@ -54,19 +79,39 @@ export default {
 
 <style lang="less" scoped>
   @viewHeight:100vh;
+  * {
+    box-sizing: border-box;
+  }
   .common-layout {
     background: white;
   }
   .el-aside {
-    background: salmon;
+    background: white;;
     height: calc(@viewHeight - 60px);
+    .menuType {
+      display: flex;
+      width: 100%;
+      border: 2px solid #e5e5e5;
+      span {
+        margin: 8px 0px 8px 30px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 16px;
+        color: rgb(138, 133, 133);
+      }
+      .menuActive {
+        color: black;
+      }
+    }
   }
   .el-header {
-    background: violet;
+    background: white;
+    border: 2px solid #e5e5e5;
     height: 70%;
   }
   .el-main {
-    background: yellowgreen;
+    background:white;
+    border: 2px solid #e5e5e5;
     height: 30%;
   }
 </style>

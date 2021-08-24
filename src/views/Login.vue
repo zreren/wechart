@@ -50,7 +50,7 @@ export default {
     setup() {
 
 
-    let container
+    let container;
 
     onMounted(()=>{
         container = document.getElementById('container');

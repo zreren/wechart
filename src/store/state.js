@@ -1,5 +1,6 @@
 const state =  {
-    preChartType:''
+    preChartType:'',
+    myChart:{}
 }
 
 export default state 

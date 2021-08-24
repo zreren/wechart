@@ -40,7 +40,7 @@ const routes = [
           component:ChartType,
         },
         {
-          path: '/edit/chart/edit',
+          path: '/edit/chart',
           name: 'ChartEdit',
           component:ChartEdit,
         }

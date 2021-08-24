@@ -42,7 +42,6 @@ export default {
       })
       onMounted(()=>{
           getExplioreInfo().then(res=>{
-              console.log(res.result)
               data.infoData= res.result
           })
       })

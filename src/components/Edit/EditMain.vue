@@ -1,5 +1,5 @@
 <template>
-  <div id="main">111</div>
+  <div id="main"></div>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import { Bar } from '../../common/chart/bar.js'
 import * as echarts from 'echarts';
 import { useStore } from 'vuex';
 import { watch } from '@vue/runtime-core';
-
+import theme from '../../assets/json/theme.json'
 export default {
   components: {  },
   setup() {
@@ -16,14 +16,14 @@ export default {
     watch(
       ()=>store.state.preChartType,
       ()=>{
-        if(document.getElementById('main'))
+        if(document.getElementById('main','macarons'))
         {
+            echarts.registerTheme('westeros', theme)
             let chartDom = document.getElementById('main')
-            let myChart = echarts.init(chartDom);
+            store.state.myChart = echarts.init(chartDom,'westeros');
             if(store.state.preChartType == 'bar')
             {
-              console.log(Bar.value)
-              myChart.setOption(Bar.value) 
+              store.state.myChart.setOption(Bar.value)
             }
             else
             {
@@ -31,7 +31,6 @@ export default {
             }
         }
     })
-
     return{
       bar
     }
@@ -43,7 +42,7 @@ export default {
 
 <style lang = "less" scoped> 
   #main {
-    background: yellow;
-    height: 500px;
+    height: 100%;
+    width: 95%;
   }
 </style>

@@ -232,8 +232,7 @@ input {
 }
 
 .overlay {
- background: #FF416C;
- background: linear-gradient(to bottom, #dfe3e980, #0868e6);
+ background: #409eff;
  background-repeat: no-repeat;
  background-size: cover;
  background-position: 0 0;

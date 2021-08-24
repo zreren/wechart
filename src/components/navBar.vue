@@ -11,11 +11,39 @@
     <div class="userImg"></div>
     <el-button style="margin-right:14px" size="medium"  type="primary" round @click="$router.push('/edit')">制图</el-button>
     </div>
-    <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="share">分享</el-button>
+    <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="share" id="shareBtn">分享</el-button>
     <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="download">保存</el-button>
     <div class="userImg" v-show="!isShow"></div>
     <router-link to="/" class="logo">WeChart</router-link>
     </main>
+    
+
+    <el-dialog title="作品分享" v-model="dialogFormVisible">
+        <el-form :model="shareData">
+        <el-form-item >
+            <el-image style="width:80%;"  :src="shareDialog.img" :fit="scale-down"></el-image>
+        </el-form-item>
+        <el-form-item label="标题">
+            <el-input v-model="shareDialog.title" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="标签">
+            <el-check-tag @change="changeTag(0)" :checked="tags[0].isCheck" style="margin-right: 8px;">{{tags[0].name}}</el-check-tag>
+            <el-check-tag @change="changeTag(1)" :checked="tags[1].isCheck">{{tags[1].name}}</el-check-tag>
+        </el-form-item>
+        <el-form-item label="活动名称">
+            <el-input v-model="shareDialog.description"  type="textarea" :rows="4" placeholder="请输入内容"></el-input>
+        </el-form-item>
+        </el-form>
+        <template #footer>
+        <span class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button id="toShareBtn" type="primary" @click="toShare">确 定</el-button>
+        </span>
+        </template>
+    </el-dialog>
+
+
+    {{ptext}}
 </template>
 
 <script>
@@ -29,7 +57,7 @@ export default {
     setup() {
         const route = useRoute()
         const store = useStore()
-
+        
         const activeIndex = ref('0');
         const isShow = ref(true)
         const routerNow = {
@@ -67,16 +95,54 @@ export default {
          */
         function download() {downloadFile('测试.png',store.state.myChart.getDataURL())}
 
+
+
+        /**
+         * 更改标签
+        */
+        const tags = ref({
+            0:{name:'经济',isCheck:false},
+            1:{name:'农业',isCheck:false}
+        })
+        function changeTag(index) {
+            tags.value[index].isCheck = !tags.value[index].isCheck
+        }   
         /**
          * 分享功能
          */
+        const shareDialog = reactive({
+        title:'',
+        img:'',
+        description:'',
+        });
+        const dialogFormVisible = ref(false)
         const shareData = reactive({
             imageUrl:'default',
             title:'default',
             description:'default',
             tags:[],
+            userId:'1',
+            userName:'Aei'
         })
-        async function share() {
+        async function share() {            
+            document.getElementById('shareBtn').disabled = true
+            shareDialog.img = await store.state.myChart.getDataURL()
+            document.getElementById('shareBtn').disabled = false
+            dialogFormVisible.value = true
+        }
+        async function toShare() {
+            document.getElementById('toShareBtn').disabled = true
+            for(let index = 0; tags.value[index]; index++){
+                if(tags.value[index].isCheck)
+                {
+                    shareData.tags.push(tags.value[index].name)
+                }   
+                
+            }
+            shareData.imageUrl = shareDialog.img
+            shareData.title = shareDialog.title
+            shareData.description = shareDialog.description
+            shareData
             try{
                let res = await shareSave(shareData)
                console.log(res)
@@ -84,13 +150,21 @@ export default {
             {
                 console.error(error)
             }
+            document.getElementById('toShareBtn').disabled = false
+            dialogFormVisible.value = false
         }
+
 
         return {
         activeIndex,
         isShow,
         download,
-        share
+        share,
+        shareDialog,
+        tags,
+        changeTag,
+        dialogFormVisible,
+        toShare
         };
     }
 }

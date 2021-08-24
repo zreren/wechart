@@ -10,7 +10,7 @@
         <router-view></router-view>
       </el-aside>
       <el-container>
-        <el-header>
+        <el-header>   
             <edit-main/>
         </el-header>
         <el-main> 
@@ -51,6 +51,7 @@ export default {
       //   }
       // }
 
+
       /**
        * 设置工具栏的活跃状态
        */
@@ -65,13 +66,9 @@ export default {
           document.getElementById('menuTypeItem1').classList.remove('menuActive')
           route.push('/edit/chart')
         }
-
-
-        
-
       }
       return {
-        changeMenuType
+        changeMenuType,
       }
     }
 }

@@ -10,7 +10,9 @@
 export default {
     name:'HomeNav',
     setup() {
-
+        return {
+        
+        }
     }
 }
 </script>

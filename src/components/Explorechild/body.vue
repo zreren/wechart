@@ -1,11 +1,11 @@
 <template>
   <div class="container">
       <!-- 内容块 -->
-      <div class="content" id='1' v-for="item in infoData" :key="item._id">
+      <div @click=" textLink(item._id)" class="content" id='1' v-for="item in infoData" :key="item._id">
           <div class="showImage">
-              <img src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/8313889093d1a638_1629530133006.png" alt="" height="150">
+              <img :src="item.img_url" alt="" >
           </div>
-          <div class="showMessage" @click=" textLink(item._id)" >
+          <div class="showMessage"  >
               <div class="title">
                   <span>{{ item.autho}}</span>| <span>{{item.createdAt}}</span>|<span>{{item.c_type}}</span>|<span>图表类型：{{item.pic_type}}</span>
              </div>
@@ -44,7 +44,6 @@ export default {
       })
       onMounted(()=>{
           getExpore().then(res=>{
-              console.log(res.result)
               data.infoData= res.result
           })
       })
@@ -80,12 +79,19 @@ export default {
        justify-items: center;
         height:auto;
         .showImage:hover {cursor:pointer}
-        // .showImage{
-          
-        // }
+        .showImage{
+            height: 150px;
+            width:30%;
+            text-align: center;
+            img{
+                height: 100%;
+                width: auto;
+                max-width: 100%;
+            }
+        }
         .showMessage > *:hover{cursor:pointer}
         .showMessage{
-            
+            width: 70%;
             color: #233062;
             .title{
                 color: #C9D0E1;

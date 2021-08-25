@@ -14,9 +14,10 @@ export function SubEditor (data) {
   })
 }
 
-export function getExploreInfo () {
+export function getExploreInfo (data) {
   return request({
     url: '/getExploreInfo',
-    method: 'post'
+    method: 'post',
+    data
   })
 }

@@ -3,47 +3,120 @@
       <!-- inpput框 -->
     <div style="margin:5vh 0;">
       <div class="title">
-            <h3>作者名字:</h3>
-            <el-input v-model="author" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>作者名字:</h4>
+            <el-input v-model="author" size="mini" style="width:35vw;"></el-input>
         </div>
         <div class="title">
-            <h3>文章标题:</h3>
-            <el-input v-model="title" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>文章标题:</h4>
+            <el-input v-model="title" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h3>标题内容:</h3>
-            <el-input v-model="content" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>标题内容:</h4>
+            <el-input v-model="content" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h3>文章封面:</h3>
-            <el-input v-model="img_url" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>文章封面:</h4>
+            <el-input v-model="img_url" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h3>文章类型:</h3>
-            <el-input v-model=" c_type" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>文章类型:</h4>
+          <el-select size="mini" v-model="c_type" placeholder="请选择" style="width:35vw;">
+            <el-option
+              v-for="item in  dataList" :key="item.value"
+              :label="item.name"
+              :value="item.name">
+            </el-option>
+          </el-select>
         </div>
         <div  class="title">
-            <h3>图表类型:</h3>
-            <el-input v-model=" pic_type" size="mini" style="width:35vw;margin: 0 2vw"></el-input>
+            <h4>图表类型:</h4>
+            <el-select size="mini" v-model="pic_type" placeholder="请选择" style="width:35vw;">
+              <el-option
+                v-for="item in   typeList" :key="item.value"
+                :label="item.name"
+                :value="item.name">
+              </el-option>
+             </el-select>
         </div>
     </div>
-    <el-button @click="editorSubmit">提交</el-button>
+    <el-button @click="editorSubmit" type="primary" style=" width:150px">提交</el-button>
+    <el-button @click="rest" type="primary" style=" width:150px">重置</el-button>
+     
     <div>
-        <div id="editor" class="editor"></div>
+        <div id="editor"></div>
     </div>
   </div>
 </template>
 
 <script>
+import { ElMessage } from 'element-plus';
 import { SubEditor}  from "../api/Expliore"
-// import xss from 'xss'
+import xss from 'xss'
 import Editor from 'wangeditor'
-import {onMounted, reactive, toRefs} from "vue"
+import {onMounted, reactive, toRefs, ref} from "vue"
+
 export default {
+  data () {
+    return {
+     dataList:[
+        {
+         value:"all",
+          name:"所有"
+        },
+        {
+         value:"views",
+          name:"数据可视化"
+        },
+        {
+         value:"pic",
+          name:"图表类型"
+        },
+        {
+         value:"icon",
+          name:"图标组合"
+        },
+        {
+         value:"wealth",
+          name:"学习资源"
+        },
+        {
+         value:"technology",
+          name:"技术支持"
+        },
+        ],
+    typeList:[
+        {
+         value:"zxt",
+          name:"折线图"
+        },
+        {
+         value:"szt",
+          name:"树状图"
+        },
+        {
+         value:"bzt",
+          name:"饼状图"
+        },
+        {
+         value:"sdt",
+          name:"散点图"
+        },
+        {
+         value:"gxt",
+          name:"关系图"
+        },
+        {
+         value:"kxt",
+          name:"k线图"
+        },
+        ],
+    }
+  },
   components: {
   },
   setup(){
-    let infoData = reactive({
+   
+  let infoData = reactive({
       author:"",
       title:"",
       content:"",//标题内容
@@ -53,30 +126,50 @@ export default {
       content_main:"",//文章html
     })
     // let htmlStr = ""
-     
+    let a = ref(infoData)
     onMounted(()=>{
       let editor = new Editor('#editor') 
-      editor.config.height = 500//设置高度
+      editor.config.height =666//设置高度
+      editor.config.showFullScreen = true //全屏
       editor.config.placeholder = '开始编辑文章啦~'
+      editor.config.zIndex = 0
       editor.config.onchange = function () {
       infoData.content_main = editor.txt.html()
       }
       editor.create()
     });
+
     const editorSubmit=()=>{
-      SubEditor({
-        author:infoData.author,
-        content:infoData.content,
-        title:infoData.title,
-        c_type:infoData.c_type,//文章类型
-        pic_type:infoData.pic_type,//图表类型
-        img_url:infoData.img_url,//封面链接
-        content_main: infoData.content_main,//文章html
-        }).then((res)=>{
-        console.log("提交成功" +res)
+      if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
+        SubEditor({
+          author:xss(infoData.author),
+          content:xss(infoData.content),
+          title:xss(infoData.title),
+          c_type:xss(infoData.c_type),//文章类型
+          pic_type:xss(infoData.pic_type),//图表类型
+          img_url:xss(infoData.img_url),//封面链接
+          content_main:xss(infoData.content_main),//文章html
+        }).then(()=>{
+          ElMessage.success({
+            message: '文章提交成功！',
+            })
+        }).catch(()=>{
+          ElMessage.error({
+            message: '后台接口连接错误~',
+            })
         })
-        }
+      }else{
+           ElMessage.warning({
+          message: '请填写完整文章内容~',
+        });
+      }
+    }
+    const reset=()=>{
+      alert("学习中~功能还没实现")   // infoData.content_main=""
+    }
     return{
+      reset,
+      a,
       editorSubmit,
       ...toRefs(infoData)
     }
@@ -92,7 +185,7 @@ export default {
     text-align: left;
     .title{
         display: flex;
-        margin: 15px;
+        margin: 10px;
     }
 }
 </style>

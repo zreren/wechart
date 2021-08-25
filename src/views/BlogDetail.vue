@@ -11,11 +11,11 @@
       </ul>
     </div>
     <div class="content">
-      <h1 style="color：#233062">如何进入字节跳动？</h1>
+      <h1 style="color：#233062">{{title}}</h1>
       <div class="info">
-        <span>懒洋洋</span>|
-        <span>2021.08.21</span>|
-        <span>200</span>
+        <span>{{author}}</span>|
+        <span>{{creatTime}}</span>|
+        <span><i class="el-icon-star-on"></i>&nbsp;&nbsp;{{collect}}</span>
       </div>
       <div id="main">
       </div>
@@ -47,12 +47,23 @@ export default {
       pic_type:"",//图表类型
       img_url:"",//封面链接
       content_main:"",//文章html
+      creatTime:"",
+      collect:0,
     })
 
     onMounted(()=>{
-      console.log(route.params.id )
-      getExploreInfo().then(res=>{
+  
+      getExploreInfo({'id':`${route.params.id}`}).then(res=>{
         document.getElementById('main').innerHTML=res.result[0].content_main
+        console.log(res.result)
+        info.author=res.result[0].autho
+        info.title=res.result[0].title
+        info.content=res.result[0].content
+        info.c_type=res.result[0].c_type
+        info.pic_type=res.result[0].pic_type
+        info.creatTime=res.result[0].updatedAt
+        info.collect=res.result[0].collect
+
       })
     })
     return {
@@ -79,11 +90,13 @@ export default {
       }
     }
   }
-  .main{
+  #main{
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     width: 80%;
     margin-top: 5vh;
+    overflow: hidden;
+   
   }
 }
   .catalog{
@@ -96,4 +109,5 @@ export default {
     margin-left: -12vw;
     position: fixed;
   } 
+ 
 </style>

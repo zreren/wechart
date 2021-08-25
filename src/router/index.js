@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import { ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 const Explore = () => import('../views/Explore.vue')
 const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
 const ShareDetail = () => import('../views/ShareDetail.vue')
 const BlogDetail = () => import('../views/BlogDetail')
+const Writing = () => import('../views/Writing')
 const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartEdit = () => import('../components/Edit/ChartEdit.vue')
@@ -22,10 +25,15 @@ const routes = [
     children:[
       {
         path: '/explore/:str',
-        naem: "all",
+        name:'body',
         component:body
       }
     ]
+  },
+  {
+    path: '/writing',
+    name: 'writing',
+    component: Writing
   },
   {
     path: '/edit',
@@ -38,7 +46,7 @@ const routes = [
           component:ChartType,
         },
         {
-          path: '/edit/chart/edit',
+          path: '/edit/chart',
           name: 'ChartEdit',
           component:ChartEdit,
         }
@@ -55,7 +63,7 @@ const routes = [
     component:ShareDetail
   },
   { 
-    path: '/blog/detail',
+    path: '/blog/detail/:id',
     name: 'BlogDetail',
     component:BlogDetail,
   },
@@ -66,9 +74,37 @@ const routes = [
   }
 ]
 
+
+
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to,from)=>{
+  if(from.name === 'ChartType' || from.name === 'ChartEdit')
+  {
+    if(to.name !== 'ChartType' && to.name !== 'ChartEdit')
+    {
+      try{
+        await ElMessageBox.confirm('此操作将清空当前修改,是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+      return true
+      }
+      catch(err) {
+        ElMessage({
+          type:'info',
+          message:'已取消跳转'
+        })
+        return false
+      }
+    }
+  }
+  return true
 })
 
 export default router

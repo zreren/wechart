@@ -1,70 +1,117 @@
 <template>
-  <div class="common-layout">
+  <div  class="common-layout">
     <el-container>
       
-      <el-aside width="200px">
-        <router-link to="/edit">图表</router-link>|
-        <router-link to="/edit/chart/edit">设置</router-link><br>
+      <el-aside>
+        <div class="menuType">
+          <span id="menuTypeItem1" class="menuActive"  @click="changeMenuType(1)">图标</span>
+          <span id="menuTypeItem2" @click="changeMenuType(2)">设置</span>
+        </div>
         <router-view></router-view>
       </el-aside>
-      
       <el-container>
         <el-header>
-          <edit-main/>
+            <edit-main/>
         </el-header>
-        <el-main>
-          <data-edit/>
+        <el-main> 
+            <data-edit/>
         </el-main>
       </el-container>
     
     </el-container>
   </div>
-
-
-  <button @click="change"> 改变全局变量 </button>
-  {{$store.state.name}}
-
-  
+  <check-box/>
 </template>
 
 <script>
-import { onMounted } from 'vue'
-import { useStore } from 'vuex'
 import EditMain from '../components/Edit/EditMain.vue'
 import DataEdit from '../components/Edit/DataEdit.vue'
+import CheckBox from '../components/Edit/CheckBox.vue'
+import {useRouter} from 'vue-router'
 export default {
     name:'Edit',
     components: {
       EditMain,
-      DataEdit 
+      DataEdit,
+      CheckBox 
     },
     setup() {
-
-
-      const store = useStore()
-
-      onMounted(()=>{
-        store.state.name = 'xiaohong'
-        console.log(store.state.name)
-      })
-
+      const route = useRouter()
+      /**
+       * 防止意外刷新和关闭页面
+       */
+      // window.onbeforeunload=function(e){     
+      //   if(route.name == 'ChartType' || route.name == 'ChartEdit'){
+      //     e = e || window.event;
+      //     if (e) {
+      //         // 兼容IE8和Firefox 4之前的版本
+      //         e.returnValue = "当前内容未保存，确认离开？";
+      //     }
+      //     return "当前内容未保存，确认离开？";
+      //   }
+      // }
 
       /**
-       * 改变全局变量的一个地方
+       * 设置工具栏的活跃状态
        */
-      function change() {
-        store.state.name = 'giuiuk'
+      function changeMenuType(index) {
+        if(index == 1){
+          document.getElementById('menuTypeItem1').classList.add('menuActive')
+          document.getElementById('menuTypeItem2').classList.remove('menuActive')
+          route.push('/edit')
+        }
+        else{
+          document.getElementById('menuTypeItem2').classList.add('menuActive')
+          document.getElementById('menuTypeItem1').classList.remove('menuActive')
+          route.push('/edit/chart')
+        }
+
+
+        
+
       }
-
-
-
       return {
-        change
+        changeMenuType
       }
     }
 }
 </script>
 
 <style lang="less" scoped>
-
+  @viewHeight:100vh;
+  * {
+    box-sizing: border-box;
+  }
+  .common-layout {
+    background: white;
+  }
+  .el-aside {
+    background: white;;
+    height: calc(@viewHeight - 60px);
+    .menuType {
+      display: flex;
+      width: 100%;
+      border: 2px solid #e5e5e5;
+      span {
+        margin: 8px 0px 8px 30px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 16px;
+        color: rgb(138, 133, 133);
+      }
+      .menuActive {
+        color: black;
+      }
+    }
+  }
+  .el-header {
+    background: white;
+    border: 2px solid #e5e5e5;
+    height: 70%;
+  }
+  .el-main {
+    background:white;
+    border: 2px solid #e5e5e5;
+    height: 30%;
+  }
 </style>

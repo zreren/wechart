@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-      <div class="select">
+    <div>
+      <!-- 下拉框 -->
+        <div class="select">
           <el-select v-model="selectNode" placeholder="选择分类" size="mini">
               <el-option v-for="(item,index) in this.dataList2"
               :key="index"
@@ -9,18 +11,20 @@
               >{{item.name}}</el-option>
           </el-select>
       </div>
+      <!-- 标题栏 -->
       <div class="bar">
           <ul>
               <router-link class="liStyle" tag="li" :to="`/explore/${item.value}`" v-for="(item,index) in this.dataList" :key="index"> {{item.name}}</router-link>
           </ul>
       </div>
-            <!-- 搜索框 -->
+       <!-- 搜索框 -->
       <div class="searchpack">
         <div class="search">
               <input type="text" class="input" placeholder="搜索关键字">  
         </div>  
-        <i class="el-icon-search" style="color:#EEF2F8;font-weight:900;font-size:20px;margin-left:5px"></i>
+        <i class="el-icon-search" style=""></i>
      </div>
+    </div>
      <div class="divBody">
        <router-view><Body></Body></router-view>
      </div>
@@ -74,7 +78,6 @@ export default {
 <style scoped lang="less">
 * ::-webkit-scrollbar {display:none}
 .container{
-  
     width: 80%;
     margin: 0 auto;
     height: auto;
@@ -90,7 +93,6 @@ export default {
       margin-left: 2vw;
       height: 100%;
         ul{ 
-          
             list-style: none;
             display: flex;
             justify-content:center;
@@ -106,13 +108,14 @@ export default {
         }
     }
     .searchpack{
-        display:flex; 
+      margin-left: 30px;
         height:5vh;
+        width: auto;
         align-items: center;
+        display: inline-flex;
         .search{
-        justify-content:center; 
         height: 25px;
-        width: 35%;
+        width: 15vw;
         border-radius:15px;
         background: #EEF2F8;
         text-align: center;
@@ -129,6 +132,7 @@ export default {
     }
     }
     .divBody{
+      display: flex;
       width: 100%;
       margin: 1vh auto;
       height: 80vh;

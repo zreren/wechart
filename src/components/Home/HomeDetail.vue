@@ -57,7 +57,7 @@
     </el-row>
     
     <footer>
-        @copyright bytedance youth camp
+        @create by WeChart
     </footer>
 </template>
 
@@ -71,20 +71,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// .navcontainer{
-//     display: flex;
-//     justify-content: center;
-// }
-//  .navbox{
-//      display: flex;
-//      justify-content: center;
-//      align-content: center;
-//     //  margin: 60px;
-//      align-items: center;
-//      width: 300px;
-//      height: 440px;
-//      background-color: #EAEFF6;
-//  }
+/* .navcontainer{
+    display: flex;
+    justify-content: center;
+}
+ .navbox{
+     display: flex;
+     justify-content: center;
+     align-content: center;
+    //  margin: 60px;
+     align-items: center;
+     width: 300px;
+     height: 440px;
+     background-color: #EAEFF6;
+ } */
 .el-row {
     margin-bottom: 100px;
     padding:0 180px;

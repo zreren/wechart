@@ -1,5 +1,6 @@
 const state =  {
-    name:'xiaoming'
+    preChartType:'',
+    myChart:{}
 }
 
 export default state 

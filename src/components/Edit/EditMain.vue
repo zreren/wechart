@@ -3,36 +3,33 @@
 </template>
 
 <script>
-import { Bar } from '../../common/chart/bar.js'
+import { cahrtTemplate } from '../../common/chart/chart'
 import * as echarts from 'echarts';
 import { useStore } from 'vuex';
 import { watch } from '@vue/runtime-core';
-import theme from '../../assets/json/theme.json'
+import westeros from '../../assets/json/theme/westeros.json'
 export default {
   components: {  },
   setup() {
     const store = useStore()
-    const bar = Bar
+    let chartDom,preChart
     watch(
       ()=>store.state.preChartType,
       ()=>{
         if(document.getElementById('main','macarons'))
         {
-            echarts.registerTheme('westeros', theme)
-            let chartDom = document.getElementById('main')
-            store.state.myChart = echarts.init(chartDom,'westeros');
-            if(store.state.preChartType == 'bar')
-            {
-              store.state.myChart.setOption(Bar.value)
-            }
-            else
-            {
-              console.log('s')
-            }
+            console.log(westeros)
+            echarts.registerTheme('westeros', westeros)
+            chartDom = document.getElementById('main')
+            preChart = echarts.init(chartDom,'westeros');
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+            console.log(cahrtTemplate[store.state.preChartType].series[0].data[1])
         }
     })
+
     return{
-      bar
+
     }
 
 

@@ -1,6 +1,6 @@
 <template>
     <div class="mask"></div>
-    <div style="position:absolute;top:15%;left:0;width:100%;display:flex;justify-content:center">
+    <div id="checkBoxF" style="position:absolute;top:15%;left:0;width:100%;display:flex;justify-content:center">
     <div class="checkBox">
       <h3>请选择需要制作的图表类型</h3>
       <div @click="checkType('line')" class="line">
@@ -69,11 +69,13 @@ export default {
         store.state.preChartType = typeNow
 
         const checkBox = document.getElementsByClassName('checkBox')[0]
+        const checkBoxF = document.getElementById('checkBoxF')
         const mask = document.getElementsByClassName('mask')[0]
         checkBox.style.opacity = 0
         setTimeout(() => {
           checkBox.style.zIndex = -1
           mask.style.zIndex = -1
+          checkBoxF.style.zIndex = -1
         }, 500);
       }
 

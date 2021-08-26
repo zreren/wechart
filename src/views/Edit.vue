@@ -50,8 +50,6 @@ export default {
       //     return "当前内容未保存，确认离开？";
       //   }
       // }
-
-
       /**
        * 设置工具栏的活跃状态
        */
@@ -64,7 +62,7 @@ export default {
         else{
           document.getElementById('menuTypeItem2').classList.add('menuActive')
           document.getElementById('menuTypeItem1').classList.remove('menuActive')
-          route.push('/edit/chart')
+          route.push('/edit/theme')
         }
       }
       return {

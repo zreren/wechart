@@ -19,7 +19,6 @@
     
 
     <el-dialog title="作品分享" v-model="dialogFormVisible">
-        {{shareDialog.tags}}
         <el-form :model="shareData">
         <el-form-item >
             <el-image style="width:80%;"  :src="shareDialog.img" :fit="scale-down"></el-image>
@@ -36,7 +35,7 @@
                 multiple
             />
         </el-form-item>
-        <el-form-item label="活动名称">
+        <el-form-item label="图标名称">
             <el-input v-model="shareDialog.description"  type="textarea" :rows="4" placeholder="请输入内容"></el-input>
         </el-form-item>
         </el-form>
@@ -211,8 +210,9 @@ export default {
         .toEdit {
             height: 36px;
         }
-        .el-select-v2__placeholder {
-            transform: translateX(98%);
-        }
     }
+    .el-select-v2__placeholder.is-transparent{
+        transform: translateY(50%) translateX(-98%);
+    }
+
 </style>

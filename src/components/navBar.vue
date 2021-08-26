@@ -75,7 +75,7 @@ export default {
         watch(
             ()=>route.name,
             ()=>{
-                if( new RegExp('(^Edit)|ChartType|ChartEdit').test(route.name))
+                if( new RegExp('(^Edit)|ChartType|ChartTheme').test(route.name))
                 isShow.value = false
                 else
                 isShow.value = true

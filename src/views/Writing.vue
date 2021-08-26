@@ -40,11 +40,12 @@
         </div>
     </div>
     <el-button @click="editorSubmit" type="primary" style=" width:150px">提交</el-button>
-    <el-button @click="rest" type="primary" style=" width:150px">重置</el-button>
+    <el-button @click="reset" type="primary" style=" width:150px">重置</el-button>
      
     <div>
         <div id="editor"></div>
     </div>
+    <div v-if="value=h1"></div>
   </div>
 </template>
 
@@ -53,9 +54,9 @@ import { ElMessage } from 'element-plus';
 import { SubEditor}  from "../api/Expliore"
 import xss from 'xss'
 import Editor from 'wangeditor'
-import {onMounted, reactive, toRefs, ref} from "vue"
+import {onMounted, reactive, toRefs,} from "vue"
 
-export default {
+export default {  
   data () {
     return {
      dataList:[
@@ -124,17 +125,32 @@ export default {
       pic_type:"",//图表类型
       img_url:"",//封面链接
       content_main:"",//文章html
+      tagArr:[]
     })
     // let htmlStr = ""
-    let a = ref(infoData)
+    // var options = {
+    //   whiteList: {
+    //      h1: ["id", "title", "target"],
+    //      h2: ["id", "title", "target"],
+    //      h3: ["id", "title", "target"],
+    //      h4: ["id", "title", "target"],
+    //      h5: ["id", "title", "target"],
+    //      h: ["id", "title", "target"],
+    //   },
+    // };
     onMounted(()=>{
       let editor = new Editor('#editor') 
       editor.config.height =666//设置高度
       editor.config.showFullScreen = true //全屏
       editor.config.placeholder = '开始编辑文章啦~'
       editor.config.zIndex = 0
+      //获取html
       editor.config.onchange = function () {
       infoData.content_main = editor.txt.html()
+      }
+      //获取tag
+      editor.config.onCatalogChange = function (headList){
+        infoData.tagArr=headList
       }
       editor.create()
     });
@@ -148,7 +164,8 @@ export default {
           c_type:xss(infoData.c_type),//文章类型
           pic_type:xss(infoData.pic_type),//图表类型
           img_url:xss(infoData.img_url),//封面链接
-          content_main:xss(infoData.content_main),//文章html
+          content_main:infoData.content_main,//文章html
+          tagArr:infoData.tagArr,//
         }).then(()=>{
           ElMessage.success({
             message: '文章提交成功！',
@@ -169,7 +186,6 @@ export default {
     }
     return{
       reset,
-      a,
       editorSubmit,
       ...toRefs(infoData)
     }

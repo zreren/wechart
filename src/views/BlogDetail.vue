@@ -1,13 +1,9 @@
 <template>
   <div class="container">
     <div class=" catalog ">
-      <ul>
+      <ul >
         <li>目录</li>
-        <li>最受欢迎的图标</li>
-        <li>鸽子的用图</li>
-        <li>获取数据的路径</li>
-        <li>结语</li>
-        <li>关注</li>
+        <li v-for="item in catalog" :key="item"><a style="color：#233062" :href="'#'+item.id">{{item.text}}{{item.id}}</a></li>
       </ul>
     </div>
     <div class="content">
@@ -49,6 +45,7 @@ export default {
       content_main:"",//文章html
       creatTime:"",
       collect:0,
+      catalog:[]
     })
 
     onMounted(()=>{
@@ -63,7 +60,8 @@ export default {
         info.pic_type=res.result[0].pic_type
         info.creatTime=res.result[0].updatedAt
         info.collect=res.result[0].collect
-
+        info.collect=res.result[0].collect
+        info.catalog=res.result[0].tagArr
       })
     })
     return {

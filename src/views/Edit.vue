@@ -4,8 +4,8 @@
       
       <el-aside>
         <div class="menuType">
-          <span id="menuTypeItem1" class="menuActive"  @click="changeMenuType(1)">图标</span>
-          <span id="menuTypeItem2" @click="changeMenuType(2)">设置</span>
+          <span id="menuTypeItem1" class="menuActive"  @click="changeMenuType(1)">类型</span>
+          <span id="menuTypeItem2" @click="changeMenuType(2)">主题</span>
         </div>
         <router-view></router-view>
       </el-aside>
@@ -82,6 +82,9 @@ export default {
   .common-layout {
     background: white;
   }
+  .el-container.is-vertical {
+    height: calc(@viewHeight - 60px);
+  }
   .el-aside {
     background: white;;
     height: calc(@viewHeight - 60px);
@@ -103,12 +106,16 @@ export default {
   }
   .el-header {
     background: white;
+    padding-bottom: 0;
+    margin: 0;
     border: 2px solid #e5e5e5;
-    height: 70%;
+    height: 65%;
   }
   .el-main {
     background:white;
+    padding: 0;
+    margin: 0;
     border: 2px solid #e5e5e5;
-    height: 30%;
+    height: 35%;
   }
 </style>

@@ -24,13 +24,18 @@
             <el-image style="width:80%;"  :src="shareDialog.img" :fit="scale-down"></el-image>
         </el-form-item>
         <el-form-item label="标题">
-            <el-input v-model="shareDialog.title" autocomplete="off"></el-input>
+            <el-input v-model="shareDialog.title" autocomplete="off" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item label="标签">
-            <el-check-tag @change="changeTag(0)" :checked="tags[0].isCheck" style="margin-right: 8px;">{{tags[0].name}}</el-check-tag>
-            <el-check-tag @change="changeTag(1)" :checked="tags[1].isCheck">{{tags[1].name}}</el-check-tag>
+            <el-select-v2
+                v-model="shareDialog.tags"
+                :options="tags"
+                placeholder=" "
+                style="width: 100%;"
+                multiple
+            />
         </el-form-item>
-        <el-form-item label="活动名称">
+        <el-form-item label="图标名称">
             <el-input v-model="shareDialog.description"  type="textarea" :rows="4" placeholder="请输入内容"></el-input>
         </el-form-item>
         </el-form>
@@ -41,9 +46,6 @@
         </span>
         </template>
     </el-dialog>
-
-
-    {{ptext}}
 </template>
 
 <script>
@@ -100,13 +102,18 @@ export default {
         /**
          * 更改标签
         */
-        const tags = ref({
-            0:{name:'经济',isCheck:false},
-            1:{name:'农业',isCheck:false}
-        })
-        function changeTag(index) {
-            tags.value[index].isCheck = !tags.value[index].isCheck
-        }   
+        const tags = ref([
+            {value:'经济',label:'经济'},
+            {value:'农业',label:'农业'},
+            {value:'气候',label:'气候'},
+            {value:'教育',label:'教育'},
+            {value:'能源',label:'能源'},
+            {value:'环境',label:'环境'},
+            {value:'性别',label:'性别'},
+            {value:'健康',label:'健康'},
+            {value:'基础建设',label:'基础建设'},
+            {value:'社会保障',label:'社会保障'},
+        ])
         /**
          * 分享功能
          */
@@ -114,6 +121,7 @@ export default {
         title:'',
         img:'',
         description:'',
+        tags:[]
         });
         const dialogFormVisible = ref(false)
         const shareData = reactive({
@@ -132,17 +140,10 @@ export default {
         }
         async function toShare() {
             document.getElementById('toShareBtn').disabled = true
-            for(let index = 0; tags.value[index]; index++){
-                if(tags.value[index].isCheck)
-                {
-                    shareData.tags.push(tags.value[index].name)
-                }   
-                
-            }
             shareData.imageUrl = shareDialog.img
             shareData.title = shareDialog.title
             shareData.description = shareDialog.description
-            shareData
+            shareData.tags = shareDialog.tags
             try{
                let res = await shareSave(shareData)
                console.log(res)
@@ -153,8 +154,6 @@ export default {
             document.getElementById('toShareBtn').disabled = false
             dialogFormVisible.value = false
         }
-
-
         return {
         activeIndex,
         isShow,
@@ -162,9 +161,8 @@ export default {
         share,
         shareDialog,
         tags,
-        changeTag,
         dialogFormVisible,
-        toShare
+        toShare,
         };
     }
 }
@@ -213,4 +211,8 @@ export default {
             height: 36px;
         }
     }
+    .el-select-v2__placeholder.is-transparent{
+        transform: translateY(50%) translateX(-98%);
+    }
+
 </style>

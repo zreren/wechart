@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import state from '../store/state'
 import Home from '../views/Home.vue'
 import { ElMessage } from 'element-plus'
 import { ElMessageBox } from 'element-plus'
@@ -10,7 +11,7 @@ const BlogDetail = () => import('../views/BlogDetail')
 const Writing = () => import('../views/Writing')
 const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
-const ChartEdit = () => import('../components/Edit/ChartEdit.vue')
+const ChartTheme = () => import('../components/Edit/ChartTheme.vue')
 const body = ()=>import('../components/Explorechild/body.vue')
 const routes = [
   {
@@ -46,9 +47,9 @@ const routes = [
           component:ChartType,
         },
         {
-          path: '/edit/chart',
-          name: 'ChartEdit',
-          component:ChartEdit,
+          path: '/edit/theme',
+          name: 'ChartTheme',
+          component:ChartTheme,
         }
     ],
   },
@@ -83,9 +84,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to,from)=>{
-  if(from.name === 'ChartType' || from.name === 'ChartEdit')
+  if(from.name === 'ChartType' || from.name === 'ChartTheme')
   {
-    if(to.name !== 'ChartType' && to.name !== 'ChartEdit')
+    if(to.name !== 'ChartType' && to.name !== 'ChartTheme')
     {
       try{
         await ElMessageBox.confirm('此操作将清空当前修改,是否继续?', '提示', {
@@ -93,6 +94,7 @@ router.beforeEach(async (to,from)=>{
         cancelButtonText: '取消',
         type: 'warning',
       })
+      state.preChartType = ''
       return true
       }
       catch(err) {

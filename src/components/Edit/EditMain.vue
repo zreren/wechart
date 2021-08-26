@@ -7,27 +7,50 @@ import { cahrtTemplate } from '../../common/chart/chart'
 import * as echarts from 'echarts';
 import { useStore } from 'vuex';
 import { watch } from '@vue/runtime-core';
+import essos from '../../assets/json/theme/essos.json'
+import infographic from '../../assets/json/theme/infographic.json'
+import macarons from '../../assets/json/theme/macarons.json'
+import roma from '../../assets/json/theme/roma.json'
+import vintage from '../../assets/json/theme/vintage.json'
+import walden from '../../assets/json/theme/walden.json'
 import westeros from '../../assets/json/theme/westeros.json'
+import wonderland from '../../assets/json/theme/wonderland.json'
+import chalk from '../../assets/json/theme/chalk.json'
+import purplePassion from '../../assets/json/theme/purple-passion.json'
 export default {
   components: {  },
   setup() {
     const store = useStore()
     let chartDom,preChart
+    echarts.registerTheme('essos',essos)
+    echarts.registerTheme('westeros',westeros)
+    echarts.registerTheme('vintage',vintage)
+    echarts.registerTheme('infographic',infographic)
+    echarts.registerTheme('macarons',macarons)
+    echarts.registerTheme('roma',roma)
+    echarts.registerTheme('walden',walden)
+    echarts.registerTheme('wonderland',wonderland)
+    echarts.registerTheme('chalk',chalk)
+    echarts.registerTheme('purple-passion',purplePassion)
     watch(
       ()=>store.state.preChartType,
       ()=>{
-        if(document.getElementById('main','macarons'))
+        if(document.getElementById('main'))
         {
-            console.log(westeros)
-            echarts.registerTheme('westeros', westeros)
             chartDom = document.getElementById('main')
             preChart = echarts.init(chartDom,'westeros');
             preChart.setOption(cahrtTemplate[store.state.preChartType])
             store.state.myChart = preChart
-            console.log(cahrtTemplate[store.state.preChartType].series[0].data[1])
         }
     })
-
+    watch(
+      ()=>store.state.theme,
+      ()=>{
+            preChart.dispose()
+            preChart = echarts.init(chartDom,store.state.theme)
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+    })
     return{
 
     }

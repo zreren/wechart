@@ -10,14 +10,15 @@
         <router-view></router-view>
       </el-aside>
       <el-container>
-        <el-header>   
+        <el-header>
             <edit-main/>
         </el-header>
-        <el-main> 
+        <el-main>
             <data-edit/>
+            <i  @click="$router.push('/edit/upload')" index="1" class="el-icon-upload"></i>
+            <!-- <upload/> -->
         </el-main>
       </el-container>
-    
     </el-container>
   </div>
   <check-box/>
@@ -27,13 +28,15 @@
 import EditMain from '../components/Edit/EditMain.vue'
 import DataEdit from '../components/Edit/DataEdit.vue'
 import CheckBox from '../components/Edit/CheckBox.vue'
+// import Upload from '../components/Edit/ChartUpload.vue'
 import {useRouter} from 'vue-router'
 export default {
     name:'Edit',
     components: {
       EditMain,
       DataEdit,
-      CheckBox 
+      CheckBox,
+      // Upload,
     },
     setup() {
       const route = useRouter()

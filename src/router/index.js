@@ -13,6 +13,7 @@ const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartTheme = () => import('../components/Edit/ChartTheme.vue')
 const body = ()=>import('../components/Explorechild/body.vue')
+const ChartUpload = ()=>import('../components/Edit/ChartUpload.vue')
 const routes = [
   {
     path: '/',
@@ -50,6 +51,11 @@ const routes = [
           path: '/edit/theme',
           name: 'ChartTheme',
           component:ChartTheme,
+        },
+        {
+          path: '/edit/upload',
+          name: 'CharUpload',
+          component:ChartUpload,
         }
     ],
   },

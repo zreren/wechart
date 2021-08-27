@@ -147,61 +147,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-<<<<<<< HEAD
-* ::-webkit-scrollbar {display:none}
-.container{
-    width: 80%;
-    margin: 0 auto;
-    height: auto;
-    min-width: 700px;
-    text-align: left;
-    .select{
-      display: inline-block;
-      width: 10vw;
-    }
-    .bar{
-      height: 5vh;
-      display: inline-block;
-      margin-left: 2vw;
-      height: 100%;
-        ul{ 
-            list-style: none;
-            display: flex;
-            justify-content:center;
-            align-items:center;
-           .liStyle{
-               text-decoration: none;
-              margin: 1vh 1vw;
-              color: #A9B4C1;
-            }
-            .liStyle:hover{
-                  color: #2F80ED;
-              }
-        }
-    }
-    .searchpack{
-      margin-left: 30px;
-        height:5vh;
-        width: auto;
-        align-items: center;
-        display: inline-flex;
-        .search{
-        height: 25px;
-        width: 15vw;
-        border-radius:15px;
-        background: #EEF2F8;
-        text-align: center;
-        .input{
-            text-align: right;
-            color: #757575;
-            font-size: 12px;
-            width: 85%;
-            height:100%;
-            display: inline-block;
-            background: #EEF2F8;
-            outline: none;
-        }
-=======
 * ::-webkit-scrollbar {
   display: none;
 }
@@ -233,7 +178,6 @@ export default {
       .liStyle:hover {
         color: #2f80ed;
       }
->>>>>>> 106dd3c60c7d6edeecb6c3023ea3f15a19dd27d7
     }
   }
   .searchpack {

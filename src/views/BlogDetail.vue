@@ -141,10 +141,10 @@ export default {
     position: fixed;
     height:60vh;
     width: 12vw;
-    margin-left:5vw;
+    margin-left:4vw;
     li:hover {cursor:pointer}
     li{
-      font-size: 12px;
+      font-size: 14px;
       text-align: left;
       color: #555785;
       margin-top: 1vh;

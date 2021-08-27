@@ -35,7 +35,7 @@
                 multiple
             />
         </el-form-item>
-        <el-form-item label="图标名称">
+        <el-form-item label="内容">
             <el-input v-model="shareDialog.description"  type="textarea" :rows="4" placeholder="请输入内容"></el-input>
         </el-form-item>
         </el-form>
@@ -50,6 +50,7 @@
 
 <script>
 import { onBeforeMount, reactive, ref, watch } from 'vue'
+import { ElNotification } from 'element-plus';
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import {shareSave} from '../http/share'
@@ -74,7 +75,7 @@ export default {
         watch(
             ()=>route.name,
             ()=>{
-                if( new RegExp('(^Edit)|ChartType|ChartEdit').test(route.name))
+                if( new RegExp('(^Edit)|ChartType|ChartTheme').test(route.name))
                 isShow.value = false
                 else
                 isShow.value = true
@@ -147,13 +148,25 @@ export default {
             try{
                let res = await shareSave(shareData)
                console.log(res)
+               ElNotification({
+                title: '分享成功',
+                message: '分享内容可在分享大厅查看',   
+                position: 'bottom-right'
+                });
             }catch(error)
             {
                 console.error(error)
+                ElNotification({
+                title: '分享失败',
+                message: '分享过程出现意外',
+                type: 'warning',
+                position: 'bottom-right'
+                });
             }
             document.getElementById('toShareBtn').disabled = false
             dialogFormVisible.value = false
         }
+
         return {
         activeIndex,
         isShow,

@@ -23,8 +23,7 @@
             v-for="(item, index) in this.dataList"
             :key="index"
           >
-            {{ item.name }}</router-link
-          >
+            {{ item.name }}</router-link>
         </ul>
       </div>
       <!-- 搜索框 -->
@@ -50,10 +49,10 @@
           </div>
           <div class="showMessage">
             <div class="title">
-              <span>{{ item.autho }}</span
-              >| <span>{{ item.createdAt }}</span
-              >|<span>{{ item.c_type }}</span
-              >|<span>图表类型：{{ item.pic_type }}</span>
+              <span>{{ item.autho }}</span>|
+               <span>{{ item.createdAt }}</span>|
+               <span>{{ item.c_type }}</span>|
+               <span>图表类型：{{ item.pic_type }}</span>
             </div>
             <div class="info">
               <h3>{{ item.title }}</h3>

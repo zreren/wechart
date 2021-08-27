@@ -5,9 +5,12 @@
     <!-- <el-col :span="4"><div class="grid-content bg-purple"></div></el-col> -->
     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class = "text">
-            <h1>轻巧、快速、强大</h1>
-            <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
-            mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+            <h1>专业，新颖</h1>
+            <h5>
+                支持多种数据导入模式，全方位的制图体验。
+            </h5>
+             <h5>
+                为您制图时的疑惑提供专业性的建议，网罗前沿可视化设计。
             </h5>
         </div>
     </el-col>
@@ -23,9 +26,10 @@
     <el-row >
     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class = "text2">
-            <h1>Light, Fast & Powerful</h1>
-            <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
-            mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+            <h1>轻巧、快速</h1>
+            <h5>我们的现成模板驱动参与，图表选择附带适合类型，让您更轻松的选择。
+            </h5>
+            <h5>获取带有您的品牌、颜色、的主题。让您的图表与主题内容契合，视觉统一。
             </h5>
         </div>
     </el-col>
@@ -41,9 +45,12 @@
     <!-- <el-col :span="4"><div class="grid-content bg-purple"></div></el-col> -->
     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class = "text">
-            <h1>Light, Fast & Powerful</h1>
-            <h5>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
-            mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+            <h1>简洁，精准</h1>
+            <h5>
+                致力于打造极简的操作方式，最高效的完成内容的创作。
+            </h5>
+            <h5>
+                依据分类，精准呈现用户所需的内容，更快的完成搜索。
             </h5>
         </div>
     </el-col>
@@ -85,7 +92,7 @@ export default {
      background-color: #EAEFF6;
  } */
 .detail{
-    background-color: #ffffff;
+    background-color: #fafcff;
     padding: 100px 0 50px 0;
 }
 .el-row {
@@ -124,6 +131,8 @@ export default {
  }
 h1{
     font-weight:300 ;
+    font-size: 36px;
+    color:#52575f
 }
 h5{
     font-weight: lighter;

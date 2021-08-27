@@ -1,5 +1,5 @@
 const state =  {
-    preChartType:'',
+    preChartType:'other',
     myChart:{},
     theme:'westors'
 }

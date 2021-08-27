@@ -19,7 +19,7 @@
    <img @click="changeType('scatter')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/0776ceba190eb4de_1630050870509.png" alt="">
    <img @click="changeSize()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/421fa5087349c439_1630053107172.png" alt="">
 
-    <p>散点图(不建议与其他类型交换)
+    <p>饼图(不建议与其他类型交换)
      <i @click="openNew" class="el-icon-question"></i>
      </p> 
    <el-divider></el-divider>
@@ -122,6 +122,9 @@ export default {
     const router = useRouter();
     const { href } = router.resolve({
                 path: '/blog/detail/61272f36835a78f6ba8d32d4',
+                params:{
+                  name: 'Explore'
+                }
             });
     function openNew() {
       window.open(href, "_blank");

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { onBeforeMount, reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { ElNotification } from 'element-plus';
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -66,7 +66,8 @@ export default {
         const routerNow = {
                     Home:'1',
                     Explore:'2',
-                    Community:'3'
+                    Community:'3',
+                    BlogDetail:'2',
                 }
         /**
          * 判断当前页面是否需要显示主页，发现，广场
@@ -88,10 +89,11 @@ export default {
         /**
          * 优化刷新时的el-menu的index跳转 
          */
-        onBeforeMount(()=>{
+        onMounted(()=>{
             if(routerNow[route.name])
-                activeIndex.value = routerNow[route.name]
+            activeIndex.value = routerNow[route.name]   
         })
+    
 
         /**
          * 保存功能
@@ -130,7 +132,9 @@ export default {
             title:'default',
             description:'default',
             tags:[],
-            userId:'1',
+            collect:66,
+            getNum:66,
+            userId:'chartuser816700',
             userName:'Aei'
         })
         async function share() {            

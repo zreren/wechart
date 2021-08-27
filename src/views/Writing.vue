@@ -1,25 +1,25 @@
 <template>
   <div class="container">
       <!-- inpput框 -->
-    <div style="margin:5vh 0;">
+    <div class="imput">
       <div class="title">
-            <h4>作者名字:</h4>
+            作者名字:
             <el-input v-model="author" size="mini" style="width:35vw;"></el-input>
         </div>
         <div class="title">
-            <h4>文章标题:</h4>
+            文章标题:
             <el-input v-model="title" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>标题内容:</h4>
+            标题内容:
             <el-input v-model="content" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>文章封面:</h4>
+          文章封面:
             <el-input v-model="img_url" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>文章类型:</h4>
+            文章类型:
           <el-select size="mini" v-model="c_type" placeholder="请选择" style="width:35vw;">
             <el-option
               v-for="item in  dataList" :key="item.value"
@@ -29,7 +29,7 @@
           </el-select>
         </div>
         <div  class="title">
-            <h4>图表类型:</h4>
+            图表类型:
             <el-select size="mini" v-model="pic_type" placeholder="请选择" style="width:35vw;">
               <el-option
                 v-for="item in   typeList" :key="item.value"
@@ -45,7 +45,6 @@
     <div>
         <div id="editor"></div>
     </div>
-    <div v-if="value=h1"></div>
   </div>
 </template>
 
@@ -84,6 +83,10 @@ export default {
          value:"technology",
           name:"技术支持"
         },
+        {
+         value:"other",
+          name:"其他"
+        },
         ],
     typeList:[
         {
@@ -107,8 +110,8 @@ export default {
           name:"关系图"
         },
         {
-         value:"kxt",
-          name:"k线图"
+         value:"other",
+          name:"其他"
         },
         ],
     }
@@ -130,12 +133,13 @@ export default {
     // let htmlStr = ""
     // var options = {
     //   whiteList: {
-    //      h1: ["id", "title", "target"],
-    //      h2: ["id", "title", "target"],
-    //      h3: ["id", "title", "target"],
-    //      h4: ["id", "title", "target"],
-    //      h5: ["id", "title", "target"],
-    //      h: ["id", "title", "target"],
+    //      h1: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h2: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h3: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h4: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h5: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h6: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+         
     //   },
     // };
     onMounted(()=>{
@@ -154,7 +158,9 @@ export default {
       }
       editor.create()
     });
-
+    const reset=()=>{
+    //  editor.txt.clear()  
+    }
     const editorSubmit=()=>{
       if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
@@ -181,9 +187,7 @@ export default {
         });
       }
     }
-    const reset=()=>{
-      alert("学习中~功能还没实现")   // infoData.content_main=""
-    }
+    
     return{
       reset,
       editorSubmit,
@@ -199,9 +203,15 @@ export default {
     width: 80%;
     margin: 2vh auto;
     text-align: left;
-    .title{
+    .input{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content:center;
+        .title{
         display: flex;
         margin: 10px;
     }
+    }
+  
 }
 </style>

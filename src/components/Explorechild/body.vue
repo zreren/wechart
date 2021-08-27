@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container1">
       <!-- 内容块 -->
       <div @click=" textLink(item._id)" class="content" id='1' v-for="item in infoData" :key="item._id">
           <div class="showImage">
@@ -28,14 +28,7 @@ import {useRouter} from 'vue-router'
 export default {
   data () {
     return {
-        dataList:['所有','数据可视化','图表类型','图标组合','学习资源','技术支持'],
-        selectNode:"",
-        search:""
     }
-  },
-  components: {
-
-
   },
   setup(){
       const router = useRouter()
@@ -44,7 +37,7 @@ export default {
       })
       onMounted(()=>{
           getExpore().then(res=>{
-              data.infoData= res.result
+              data.infoData= res.result.slice(0,2)
           })
       })
       function textLink(id){
@@ -63,25 +56,21 @@ export default {
 
 <style scoped lang="less">
 .container::-webkit-scrollbar {display:none}
-.container{
+.container1{
     text-align: left;
-    width: 70%;
     margin: 1vh auto;
-    height: 80vh;
-    overflow: scroll;
-
     .content{
         overflow: hidden;
         margin-top: 1vh;
-        width: 100%;
         display: flex;
         align-items: center;
        justify-items: center;
         height:auto;
         .showImage:hover {cursor:pointer}
         .showImage{
+            width: 30%;
             height: 150px;
-            width:30%;
+         
             text-align: center;
             img{
                 height: 100%;

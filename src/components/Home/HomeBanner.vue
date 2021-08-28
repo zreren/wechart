@@ -47,6 +47,7 @@ export default {
             opacity: 0.5;
         }
         .content {
+            width: 100%;
             position: absolute;
             box-sizing: border-box;
             padding: 240px;

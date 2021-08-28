@@ -1,5 +1,4 @@
-import { ref } from 'vue';
-const line = ref({
+const line = {
     title: {
         text: '一周降雨量折线图',
     },
@@ -35,6 +34,6 @@ const line = ref({
         data: [260, 240, 120, 110, 60, 0, 60],
         type: 'line'
     }]
-})
+}
 
 export {line}

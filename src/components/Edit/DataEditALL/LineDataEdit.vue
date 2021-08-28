@@ -1,157 +1,159 @@
 <template>
- <el-table
-    :data="tableData"
-    style="width: 100%">
-    <el-table-column type="expand">
-      <template #default="props">
-        <el-form label-position="left" inline class="demo-table-expand">
-          <el-form-item label="商品名称">
-            <span>{{ props.row.name }}</span>
-          </el-form-item>
-          <el-form-item label="所属店铺">
-            <span>{{ props.row.shop }}</span>
-          </el-form-item>
-          <el-form-item label="商品 ID">
-            <span>{{ props.row.id }}</span>
-          </el-form-item>
-          <el-form-item label="店铺 ID">
-            <span>{{ props.row.shopId }}</span>
-          </el-form-item>
-          <el-form-item label="商品分类">
-            <span>{{ props.row.category }}</span>
-          </el-form-item>
-          <el-form-item label="店铺地址">
-            <span>{{ props.row.address }}</span>
-          </el-form-item>
-          <el-form-item label="商品描述">
-            <span>{{ props.row.desc }}</span>
-          </el-form-item>
-        </el-form>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="商品 ID"
-      prop="id">
-    </el-table-column>
-    <el-table-column
-      label="商品名称"
-      prop="name">
-    </el-table-column>
-    <el-table-column
-      label="描述"
-      prop="desc">
-    </el-table-column>
-  </el-table>
+  <a-table bordered :data-source="dataSource" :columns="columns" :pagination="false">
+    <template #name="{ text, record }" >
+      <div class="editable-cell">
+        <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
+          <a-input v-model:value="editableData[record.key].name" @pressEnter="save(record.key)" />
+          <check-outlined class="editable-cell-icon-check" @click="save(record.key)" />
+        </div>
+        <div v-else class="editable-cell-text-wrapper">
+          {{ text || ' ' }}
+          <edit-outlined class="editable-cell-icon" @click="edit(record.key)" />
+        </div>
+      </div>
+    </template>
+    <template #operation="{ record }">
+      <a-popconfirm
+        v-if="dataSource.length"
+        title="Sure to delete?"
+        @confirm="onDelete(record.key)"
+      >
+        <a>Delete</a>
+      </a-popconfirm>
+    </template>
+  </a-table>
+  <a-button class="editable-add-btn" @click="handleAdd" style="margin-bottom: 8px">Add</a-button>
 </template>
-
 <script>
-import { ref } from 'vue'
-export default {
-    name:'LineDataEdit',
-    setup() {
-        const tableData = ref([{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },{
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        },])
+import { computed, defineComponent, reactive, ref } from 'vue';
+import { CheckOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { cloneDeep } from 'lodash-es';
+export default defineComponent({
+  components: {
+    CheckOutlined,
+    EditOutlined,
+  },
 
-        return{
-            tableData
-        }
-    }
-}
+  setup() {
+    const columns = [
+      {
+        title: 'name',
+        dataIndex: 'name',
+        width: '30%',
+        slots: {
+          customRender: 'name',
+        },
+      },
+      {
+        title: 'age',
+        dataIndex: 'age',
+      },
+      {
+        title: 'address',
+        dataIndex: 'address',
+      },
+      {
+        title: 'operation',
+        dataIndex: 'operation',
+        slots: {
+          customRender: 'operation',
+        },
+      },
+    ];
+    const dataSource = ref([
+      {
+        key: '0',
+        name: 'Edward King 0',
+        age: 32,
+        address: 'London, Park Lane no. 0',
+      },
+      {
+        key: '1',
+        name: 'Edward King 1',
+        age: 32,
+        address: 'London, Park Lane no. 1',
+      },
+    ]);
+
+    
+    const count = computed(() => dataSource.value.length + 1);
+    const editableData = reactive({});
+
+    const edit = key => {
+      editableData[key] = cloneDeep(dataSource.value.filter(item => key === item.key)[0]);
+    };
+
+    const save = key => {
+      Object.assign(dataSource.value.filter(item => key === item.key)[0], editableData[key]);
+      delete editableData[key];
+    };
+
+    const onDelete = key => {
+      dataSource.value = dataSource.value.filter(item => item.key !== key);
+    };
+
+    const handleAdd = () => {
+      const newData = {
+        key: `${count.value}`,
+        name: `Edward King ${count.value}`,
+        age: 32,
+        address: `London, Park Lane no. ${count.value}`,
+      };
+      dataSource.value.push(newData);
+    };
+
+    return {
+      columns,
+      onDelete,
+      handleAdd,
+      dataSource,
+      editableData,
+      count,
+      edit,
+      save,
+    };
+  },
+});
 </script>
+<style lang="less">
+.editable-cell {
+  position: relative;
+  .editable-cell-input-wrapper,
+  .editable-cell-text-wrapper {
+    padding-right: 24px;
+  }
 
-<style lang="less" scoped>
-  * {
-    margin: 0;
+  .editable-cell-text-wrapper {
+    padding: 5px 24px 5px 5px;
   }
- .demo-table-expand {
-    font-size: 0;
+
+  .editable-cell-icon,
+  .editable-cell-icon-check {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    cursor: pointer;
   }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
+
+  .editable-cell-icon {
+    margin-top: 4px;
+    display: none;
   }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
+
+  .editable-cell-icon-check {
+    line-height: 28px;
   }
+
+  .editable-cell-icon:hover,
+  .editable-cell-icon-check:hover {
+    color: #108ee9;
+  }
+
+  .editable-add-btn {
+    margin-bottom: 8px;
+  }
+}
+.editable-cell:hover .editable-cell-icon {
+  display: inline-block;
+}
 </style>

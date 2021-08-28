@@ -9,6 +9,7 @@ import { useStore } from 'vuex';
 import { watch } from '@vue/runtime-core';
 import essos from '../../assets/json/theme/essos.json';import infographic from '../../assets/json/theme/infographic.json';import macarons from '../../assets/json/theme/macarons.json';import roma from '../../assets/json/theme/roma.json';import vintage from '../../assets/json/theme/vintage.json';import walden from '../../assets/json/theme/walden.json';import westeros from '../../assets/json/theme/westeros.json';import wonderland from '../../assets/json/theme/wonderland.json';import chalk from '../../assets/json/theme/chalk.json';import purplePassion from '../../assets/json/theme/purple-passion.json'
 
+
 export default {
   components: {  },
   setup() {
@@ -43,10 +44,10 @@ export default {
             store.state.myChart = preChart
     })
 
+
     /**
      * 监听类型变换
      */
-
     watch(()=>cahrtTemplate[store.state.preChartType].series[0].type
     ,()=>{
       preChart.setOption(cahrtTemplate[store.state.preChartType])
@@ -79,6 +80,16 @@ export default {
       store.state.myChart = preChart
     })
 
+
+    /**
+     * 改变数据
+     */
+    watch(()=>cahrtTemplate[store.state.preChartType].series[0].data,
+    ()=>{
+      preChart.setOption(cahrtTemplate[store.state.preChartType])
+      store.state.myChart = preChart
+    })
+
     return{
 
     }
@@ -90,6 +101,7 @@ export default {
 
 <style lang = "less" scoped> 
   #main {
+    box-sizing: border-box;
     height: 100%;
     width: 95%;
   }

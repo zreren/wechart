@@ -1,4 +1,4 @@
-<template>
+ <template>
     <el-row >
     <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8" >
         <div  class="navbox" id="leftcard" @click="$router.push('/explore')" >
@@ -95,6 +95,7 @@ export default {
         // height:360px;
         padding:80px 40px 50px 40px;
         transition-duration: 0.5s;
+        cursor: pointer;
         // width:240px;
     }
     .navbox:hover{

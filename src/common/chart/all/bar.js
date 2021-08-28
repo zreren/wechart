@@ -8,12 +8,10 @@ const bar = ref({
       type: 'category',
       name:'',
       data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
-      scale: true
     },
     yAxis: {
       name:'件',
-      type: 'value',
-      scale: true
+      type: 'value'
     },
     legend: {
       show: true,

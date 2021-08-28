@@ -6,10 +6,10 @@ import { scatter } from './all/scatter'
 import { pie } from './all/pie'
 
 const cahrtTemplate = reactive({
-    bar: bar.value,
-    line: line.value,
-    scatter: scatter.value,
-    pie: pie.value,
+    bar,
+    line,
+    scatter,
+    pie,
     other: {
         title: {
             text: '一周降雨量折线图',

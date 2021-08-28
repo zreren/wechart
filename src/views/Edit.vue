@@ -15,8 +15,6 @@
         </el-header>
         <el-main>
             <data-edit/>
-            <i  @click="$router.push('/edit/upload')" index="1" class="el-icon-upload"></i>
-            <!-- <upload/> -->
         </el-main>
       </el-container>
     </el-container>

@@ -1,35 +1,62 @@
 <template>
-   <p>折线图
-    <i  @click="openNew" class="el-icon-question"></i>
-    </p> 
+    <div class="p">
+    <div>折线图</div>
+    <el-popover placement="right" title="line" :width="300" trigger="hover" content="线图常用来观察资料在一段时间之内的变化（时间序列），因此其X轴为时间，这种折线图又称为趋势图。">
+    <template #reference>
+      <div>
+      <img style="width:18px;" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/6bbe2504e5fe9f5f_1630074484510.png" alt="" srcset="">
+      </div>
+    </template>
+    </el-popover>
+   </div> 
    <el-divider></el-divider>
-   <img @click="changeType('line')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/d8c7500afbc28dff_1629997461526.png" alt="">
-   <img @click="addarea()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/ab8a0479dd66e0e1_1630002625952.png" alt="">
-   <p>柱状图
-     <i @click="openNew" class="el-icon-question"></i>
-     </p> 
+   <img class="box" @click="changeType('line')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/d8c7500afbc28dff_1629997461526.png" alt="">
+   <img class="box" @click="addarea()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/ab8a0479dd66e0e1_1630002625952.png" alt="">
+   <div class="p">
+     <div>柱状图</div> 
+    <el-popover placement="right" title="line" :width="300" trigger="hover" content="是一种以长方形的长度为变量的统计图表。柱形图用来比较两个或以上的价值（不同时间或者不同条件）">
+    <template #reference>
+      <div>
+      <img style="width:18px;" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/6bbe2504e5fe9f5f_1630074484510.png" alt="" srcset="">
+      </div>
+    </template>
+    </el-popover>
+    </div> 
    <el-divider></el-divider>
-   <img @click="changeType('bar')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/b63a4a4f30d4e597_1630004043524.png" alt="">
-   <img @click="addStack()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/a819d49b3fc19d84_1630048437112.png" alt="">
+   <img class="box" @click="changeType('bar')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/b63a4a4f30d4e597_1630004043524.png" alt="">
+   <img class="box" @click="addStack()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/a819d49b3fc19d84_1630048437112.png" alt="">
    
-   <p>散点图(不建议与其他类型交换)
-     <i @click="openNew" class="el-icon-question"></i>
-     </p> 
+   <div class="p">
+     <div>散点图(不建议与其他类型交换)</div> 
+     <el-popover placement="right" title="line" :width="300" trigger="hover" content="散布图可以推测两个参数中许多不同种类的相关性，配合一定的置信区间。以体重及身高为例，可能会将体重放在y轴，将身高放在x轴。相关性可能是正相关、负相关、无相关性。若散布图有从左下到右上分布的图形，表示两者正相关，若散布图有从左上到右下分布的图形，表示两者负相关。">
+    <template #reference>
+      <div>
+      <img style="width:18px;" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/6bbe2504e5fe9f5f_1630074484510.png" alt="" srcset="">
+      </div>
+    </template>
+    </el-popover>
+     </div> 
    <el-divider></el-divider>
-   <img @click="changeType('scatter')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/0776ceba190eb4de_1630050870509.png" alt="">
-   <img @click="changeSize()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/421fa5087349c439_1630053107172.png" alt="">
+   <img class="box" @click="changeType('scatter')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/0776ceba190eb4de_1630050870509.png" alt="">
+   <img class="box" @click="changeSize()" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/421fa5087349c439_1630053107172.png" alt="">
 
-    <p>饼图(不建议与其他类型交换)
-     <i @click="openNew" class="el-icon-question"></i>
-     </p> 
+    <div class="p">
+    <div>饼图(不建议与其他类型交换)</div>
+    <el-popover placement="right" title="line" :width="300" trigger="hover" content="在饼图中的每个数据系列具有唯一的颜色或图案并且在图表的图例中表示，可以很好地帮助用户快速了解数据的占比分配">
+    <template #reference>
+      <div>
+      <img style="width:18px;" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/6bbe2504e5fe9f5f_1630074484510.png" alt="" srcset="">
+      </div>
+    </template>
+    </el-popover>
+     </div> 
    <el-divider></el-divider>
-   <img @click="changePie('60%')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/1a787c1712bf1cac_1630055252792.png" alt="">
-   <img @click="changePie(['30%','60%'])" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/91e025d56fcd5b52_1630055256279.png" alt="">
+   <img class="box" @click="changePie('60%')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/1a787c1712bf1cac_1630055252792.png" alt="">
+   <img class="box" @click="changePie(['30%','60%'])" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/91e025d56fcd5b52_1630055256279.png" alt="">
 </template>
 
 <script>
 import { cahrtTemplate }  from '../../common/chart/chart'
-import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 export default {
@@ -116,24 +143,9 @@ export default {
         }
         }
     }
-    /**
-     * 跳转新页面
-     */
-    const router = useRouter();
-    const { href } = router.resolve({
-                path: '/blog/detail/61272f36835a78f6ba8d32d4',
-                params:{
-                  name: 'Explore'
-                }
-            });
-    function openNew() {
-      window.open(href, "_blank");
-    }
-    
     return {
       changeType,
       addarea,
-      openNew,
       addStack,
       changeSize,
       changePie
@@ -144,10 +156,16 @@ export default {
 
 <style lang = "less" scoped> 
 
-  p {
+  .p {
+    display: flex;
+    justify-content: space-between;
+    padding:0 15px;
     margin-top: 32px;
+    img {
+      transform: translateY(2px);
+    }
   }
-  img {
+  .box {
     margin-top: 10px;
     width: 90%;
     transition: 0.5s;
@@ -155,13 +173,10 @@ export default {
     border-radius: 5px;
     box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, .3);
   }
-  img:hover {
+  .box:hover {
     transform: scale(1.05);
   }
   .el-divider--horizontal {
     margin: 11px 0;
-  }
-  i {
-    cursor: pointer;
   }
 </style>

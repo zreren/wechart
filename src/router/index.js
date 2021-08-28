@@ -100,7 +100,7 @@ router.beforeEach(async (to,from)=>{
         cancelButtonText: '取消',
         type: 'warning',
       })
-      state.preChartType = ''
+      state.preChartType = 'other'
       return true
       }
       catch(err) {

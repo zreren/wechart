@@ -103,6 +103,6 @@ export default {
   #main {
     box-sizing: border-box;
     height: 100%;
-    width: 95%;
+    width: 100%;
   }
 </style>

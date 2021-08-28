@@ -129,6 +129,7 @@ export default {
       margin-bottom:36px;
       padding: 18px 48px 6px 48px;
       transition:ease-in-out 0.5s;
+      line-height: 18px;
       cursor:pointer;
       .title {
         font-size: 20px;

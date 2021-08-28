@@ -98,7 +98,7 @@ export default {
         /**
          * 保存功能
          */
-        function download() {downloadFile('测试.png',store.state.myChart.getDataURL())}
+        function download() {downloadFile('chart.png',store.state.myChart.getDataURL())}
 
 
 

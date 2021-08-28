@@ -85,7 +85,7 @@ const router = createRouter({
 router.beforeEach(async (to,from)=>{
   if(from.name === 'ChartType' || from.name === 'ChartTheme')
   {
-    if(to.name !== 'ChartType' && to.name !== 'ChartTheme')
+    if(to.name !== 'ChartType' && to.name !== 'ChartTheme' && to.name !== 'CharUpload')
     {
       try{
         await ElMessageBox.confirm('此操作将清空当前修改,是否继续?', '提示', {

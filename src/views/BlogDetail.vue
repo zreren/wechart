@@ -98,6 +98,7 @@ export default {
 
 <style scoped lang="less">
 .container{
+  user-select: none;
   margin-top: 5vh;
   padding: 5vh 0;
   width:100vw;
@@ -108,6 +109,7 @@ export default {
     border:solid 1px #CDCFD4;
     border-top: none;
       #main{
+        padding-bottom: 10vh ;
         margin: 0 auto;
         text-align: left;
         width: 90%;

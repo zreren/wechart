@@ -3,7 +3,7 @@
     <div>
       <!-- 下拉框 -->
       <div class="select">
-        <el-select v-model="selectNode" placeholder="选择分类" size="mini">
+        <el-select @change="changeSort" v-model="selectNode" placeholder="选择分类" size="mini">
           <el-option
             v-for="(item, index) in this.dataList2"
             :key="index"
@@ -16,14 +16,13 @@
       <!-- 标题栏 -->
       <div class="bar">
         <ul>
-          <router-link
+          <li
             class="liStyle"
-            tag="li"
-            :to="`/explore/${item.value}`"
-            v-for="(item, index) in this.dataList"
+             v-for="(item, index) in this.dataList"
             :key="index"
+            @click="changeType(item.value)"
           >
-            {{ item.name }}</router-link>
+            {{ item.name }}</li>
         </ul>
       </div>
       <!-- 搜索框 -->
@@ -34,7 +33,10 @@
         <i class="el-icon-search" style=""></i>
       </div>
     </div>
-    <div class="divBody">
+    <div v-if="!show">
+       这是一个加载页面
+    </div>
+    <div class="divBody" v-show="show">
       <div class="bodyContainer">
         <!-- 内容块 -->
         <div
@@ -78,6 +80,7 @@ import Fuse from 'fuse.js';
 export default {
   data() {
     return {
+   
       dataList: [
         {
           value: "all",
@@ -105,22 +108,28 @@ export default {
         },
       ],
       dataList2: [
-        { value: 1, name: "流行" },
-        { value: 2, name: "最新" },
+        { value: 'pop', name: "流行" },
+        { value: 'new', name: "最新" },
       ],
       selectNode:''
     };
   },
   components: {},
+ 
   setup() {
+
     const router = useRouter();
     const data = reactive({
       infoData: {},
+      show:false,
     });
     let searchText=ref('');
     onMounted(() => {
-      getExpore().then((res) => {
+     
+      getExpore({}).then((res) => {
         data.infoData = res.result;
+        console.log(res.result);
+          data.show=!data.show
       });
     });
     //使用fuse组件实现模糊搜索
@@ -135,7 +144,31 @@ export default {
     function textLink(id) {
       router.push({ path: `/blog/detail/${id}` });
     }
-    return {
+    //改变类型从接口获取数据
+   const changeType =(value)=>{
+      getExpore({type:value}).then((res) => {
+        data.infoData = []
+        data.infoData = res.result;
+      });
+  
+  }
+    const changeSort=(value)=>{
+      if(value==="pop"){
+        const fn =(a,b)=>{
+        return a.getNum-b.getNum
+      }
+      data.infoData=data.infoData.sort(fn)
+      }
+      if(value==='new'){
+         const fn =(a,b)=>{
+        return a.updatedAt>b.updatedAt?1:-1
+      }
+      data.infoData=data.infoData.sort(fn)
+      }
+    }
+  return {
+    changeSort,
+    changeType,
       textLink,
       searchText,
       ...toRefs(data),
@@ -174,7 +207,8 @@ export default {
         margin: 1vh 1vw;
         color: #c5cddf;
       }
-      .liStyle:hover {
+      .liStyle:hover  {
+        cursor: pointer;
         color: #2f80ed;
       }
     }

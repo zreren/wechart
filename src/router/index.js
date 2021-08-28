@@ -12,7 +12,6 @@ const Writing = () => import('../views/Writing')
 const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartTheme = () => import('../components/Edit/ChartTheme.vue')
-const body = ()=>import('../components/Explorechild/body.vue')
 const ChartUpload = ()=>import('../components/Edit/ChartUpload.vue')
 const routes = [
   {
@@ -24,13 +23,7 @@ const routes = [
     path: '/explore',
     name: 'Explore',
     component:Explore,
-    children:[
-      {
-        path: '/explore/:str',
-        name:'body',
-        component:body
-      }
-    ]
+   
   },
   {
     path: '/writing',

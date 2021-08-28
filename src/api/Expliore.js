@@ -1,8 +1,9 @@
 import { request } from './request'
-export function getExpore() {
+export function getExpore(data) {
   return request({
     url: '/getExplore',
     method: 'post',
+    data
   })
 }
 //编辑一面的提交

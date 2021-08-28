@@ -1,25 +1,25 @@
 <template>
   <div class="container">
       <!-- inpput框 -->
-    <div style="margin:5vh 0;">
+    <div class="imput">
       <div class="title">
-            <h4>作者名字:</h4>
+            作者名字:
             <el-input v-model="author" size="mini" style="width:35vw;"></el-input>
         </div>
         <div class="title">
-            <h4>文章标题:</h4>
+            文章标题:
             <el-input v-model="title" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>标题内容:</h4>
+            标题内容:
             <el-input v-model="content" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>文章封面:</h4>
+          文章封面:
             <el-input v-model="img_url" size="mini" style="width:35vw;"></el-input>
         </div>
         <div  class="title">
-            <h4>文章类型:</h4>
+            文章类型:
           <el-select size="mini" v-model="c_type" placeholder="请选择" style="width:35vw;">
             <el-option
               v-for="item in  dataList" :key="item.value"
@@ -29,7 +29,7 @@
           </el-select>
         </div>
         <div  class="title">
-            <h4>图表类型:</h4>
+            图表类型:
             <el-select size="mini" v-model="pic_type" placeholder="请选择" style="width:35vw;">
               <el-option
                 v-for="item in   typeList" :key="item.value"
@@ -40,7 +40,7 @@
         </div>
     </div>
     <el-button @click="editorSubmit" type="primary" style=" width:150px">提交</el-button>
-    <el-button @click="rest" type="primary" style=" width:150px">重置</el-button>
+    <el-button @click="reset" type="primary" style=" width:150px">重置</el-button>
      
     <div>
         <div id="editor"></div>
@@ -53,9 +53,9 @@ import { ElMessage } from 'element-plus';
 import { SubEditor}  from "../api/Expliore"
 import xss from 'xss'
 import Editor from 'wangeditor'
-import {onMounted, reactive, toRefs, ref} from "vue"
+import {onMounted, reactive, toRefs,} from "vue"
 
-export default {
+export default {  
   data () {
     return {
      dataList:[
@@ -83,6 +83,10 @@ export default {
          value:"technology",
           name:"技术支持"
         },
+        {
+         value:"other",
+          name:"其他"
+        },
         ],
     typeList:[
         {
@@ -106,8 +110,8 @@ export default {
           name:"关系图"
         },
         {
-         value:"kxt",
-          name:"k线图"
+         value:"other",
+          name:"其他"
         },
         ],
     }
@@ -124,21 +128,39 @@ export default {
       pic_type:"",//图表类型
       img_url:"",//封面链接
       content_main:"",//文章html
+      tagArr:[]
     })
     // let htmlStr = ""
-    let a = ref(infoData)
+    // var options = {
+    //   whiteList: {
+    //      h1: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h2: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h3: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h4: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h5: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+    //      h6: ['id', 'class', 'title', 'style', 'dir', 'lang', 'xml:lang'],
+         
+    //   },
+    // };
     onMounted(()=>{
       let editor = new Editor('#editor') 
       editor.config.height =666//设置高度
       editor.config.showFullScreen = true //全屏
       editor.config.placeholder = '开始编辑文章啦~'
       editor.config.zIndex = 0
+      //获取html
       editor.config.onchange = function () {
       infoData.content_main = editor.txt.html()
       }
+      //获取tag
+      editor.config.onCatalogChange = function (headList){
+        infoData.tagArr=headList
+      }
       editor.create()
     });
-
+    const reset=()=>{
+    //  editor.txt.clear()  
+    }
     const editorSubmit=()=>{
       if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
@@ -148,7 +170,8 @@ export default {
           c_type:xss(infoData.c_type),//文章类型
           pic_type:xss(infoData.pic_type),//图表类型
           img_url:xss(infoData.img_url),//封面链接
-          content_main:xss(infoData.content_main),//文章html
+          content_main:infoData.content_main,//文章html
+          tagArr:infoData.tagArr,//
         }).then(()=>{
           ElMessage.success({
             message: '文章提交成功！',
@@ -164,12 +187,9 @@ export default {
         });
       }
     }
-    const reset=()=>{
-      alert("学习中~功能还没实现")   // infoData.content_main=""
-    }
+    
     return{
       reset,
-      a,
       editorSubmit,
       ...toRefs(infoData)
     }
@@ -183,9 +203,15 @@ export default {
     width: 80%;
     margin: 2vh auto;
     text-align: left;
-    .title{
+    .input{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content:center;
+        .title{
         display: flex;
         margin: 10px;
     }
+    }
+  
 }
 </style>

@@ -1,14 +1,12 @@
 <template>
   <div class="container">
     <div class=" catalog ">
-      <ul>
-        <li>目录</li>
-        <li>最受欢迎的图标</li>
-        <li>鸽子的用图</li>
-        <li>获取数据的路径</li>
-        <li>结语</li>
-        <li>关注</li>
-      </ul>
+        <ul >
+          <li>目录</li>
+          <li v-for="item in catalog" :key="item"
+           @click="changeHash(`${item.id}`)"
+           >{{item.text}}</li>
+        </ul>
     </div>
     <div class="content">
       <h1 style="color：#233062">{{title}}</h1>
@@ -19,23 +17,39 @@
       </div>
       <div id="main">
       </div>
+      
     </div>
-    <div>底部元素</div>
+   <div class="bottom">
+     <div class="title"><h2>相关文章：</h2></div> 
+     <bodyBottom></bodyBottom>
+     </div>
   </div>
 </template>
 
 <script>
+import bodyBottom from '../components/Explorechild/body' 
 import { getExploreInfo } from '../api/Expliore'
 import {onMounted, reactive, toRefs} from "vue"
 import {useRoute} from 'vue-router'
 export default {
   data() {
     return {
-
+    //   liList1:{
+    //   'font-size': '14px',
+    //   'text-align':'left',
+    //   margin:'1vh 1vw',
+    //   color: '#58607D'
+    // },
+    // liList2:{
+    //    'font-size': '14px',
+    //   'text-align':'left',
+    //   margin:'1vh 1vw',
+    //   color: 'red'
+    // }
     }
   },
   components: {
-
+    bodyBottom
   },
   setup(){
     const route = useRoute()
@@ -49,10 +63,17 @@ export default {
       content_main:"",//文章html
       creatTime:"",
       collect:0,
+      catalog:[]
     })
+    //  目录点击事件
+      const changeHash=(idName)=>{
+      //   console.log(idName);
+      //   console.log( document.querySelector());
+        document.querySelector(`[id='${idName}']`).scrollIntoView(true);
+     }
 
     onMounted(()=>{
-  
+      
       getExploreInfo({'id':`${route.params.id}`}).then(res=>{
         document.getElementById('main').innerHTML=res.result[0].content_main
         console.log(res.result)
@@ -63,10 +84,12 @@ export default {
         info.pic_type=res.result[0].pic_type
         info.creatTime=res.result[0].updatedAt
         info.collect=res.result[0].collect
-
+        info.collect=res.result[0].collect
+        info.catalog=res.result[0].tagArr
       })
     })
     return {
+       changeHash,
       ...toRefs(info)
     }
   }
@@ -75,39 +98,71 @@ export default {
 
 <style scoped lang="less">
 .container{
-  width:70%;
-  margin: 5vh auto;
-  border:solid 1px #CDCFD4;
-  border-top: none;
+  user-select: none;
+  margin-top: 5vh;
+  padding: 5vh 0;
+  width:100vw;
   height: auto;
-
   .content{
+    margin: 0 auto;
+    width: 65%;
+    border:solid 1px #CDCFD4;
+    border-top: none;
+      #main{
+        padding-bottom: 10vh ;
+        margin: 0 auto;
+        text-align: left;
+        width: 90%;
+        margin-top: 5vh;
+        overflow: hidden;
+        img{
+          max-width: 100% !important;
+          height: auto;
+        }
+      }
     .info{
-      margin: 2vh 1vw;
+      margin: 4vh 1vw;
       color: #CDD7E5;
       span{
         margin: 0vw 15px;
       }
     }
   }
-  #main{
+   .catalog{
+      /* 去除滚动条- 兼容火狐和IE10+ */
+      scrollbar-width: none;
+      -ms-overflow-style: none; 
+  }
+
+   .catalog::-webkit-scrollbar {
+      /* Chrome去除滚动条 */
+      display: none;
+  }
+  .catalog{
+    overflow: auto;
+    position: fixed;
+    height:60vh;
+    width: 12vw;
+    margin-left:4vw;
+    li:hover {cursor:pointer}
+    li{
+      font-size: 14px;
+      text-align: left;
+      color: #555785;
+      margin-top: 1vh;
+    }
+  } 
+  .bottom{
     margin: 0 auto;
-    text-align: left;
-    width: 80%;
-    margin-top: 5vh;
-    overflow: hidden;
-   
+    height: 500px;
+    width: 65%;
+    .title{
+      margin-top: 3vh;
+      text-align: left;
+      color: #555785;
+    }
   }
 }
-  .catalog{
-    ul li{
-      margin: 1vh 1vw;
-      list-style: none;
-    }
-    height: 300px;
-    width: 10vw;
-    margin-left: -12vw;
-    position: fixed;
-  } 
+
  
 </style>

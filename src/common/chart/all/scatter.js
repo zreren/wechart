@@ -1,6 +1,4 @@
-import { ref } from 'vue';
-
-const scatter = ref({
+const scatter = {
     title:{
         text:'企业生产销售散点图',
     },
@@ -40,6 +38,6 @@ const scatter = ref({
                 position: 'top'
             }
     },
-})
+}
 
 export {scatter}

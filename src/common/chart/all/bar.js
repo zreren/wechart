@@ -1,6 +1,5 @@
-import { ref } from 'vue';
 
-const bar = ref({
+const bar = {
     title: {
       text: '商场销量柱状图',
     },
@@ -26,6 +25,6 @@ const bar = ref({
       type: 'bar',
       data: [20, 25, 39, 18, 15, 22],
     }]
-  });
+  };
 
 export {bar} 

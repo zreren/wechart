@@ -81,15 +81,51 @@ export default {
     })
 
 
-    /**
-     * 改变数据
-     */
-    watch(()=>cahrtTemplate[store.state.preChartType].series[0].data,
-    ()=>{
-      preChart.setOption(cahrtTemplate[store.state.preChartType])
-      store.state.myChart = preChart
-    })
 
+    /**
+     * 以下为折线图
+     */
+    /**
+     * 修改Title
+     */
+    watch(()=>store.state.preChartType,() => {
+        if(store.state.preChartType === 'line'){
+          watch(()=>cahrtTemplate[store.state.preChartType].title.text,
+          ()=>{
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+          })
+
+          /**
+           * 修改列数
+           */
+          watch(()=>cahrtTemplate[store.state.preChartType].xAxis.data.length,
+          ()=>{
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+          })
+          /**
+           * 修改行数
+           */
+          watch(()=>cahrtTemplate[store.state.preChartType].series.length,
+          (v1,v2)=>{
+            if(v1<v2)
+            preChart.dispose(),preChart = echarts.init(chartDom,store.state.theme)//行数减少时需要重新挂载，不然图像不会变化
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+          })
+
+          /**
+           * 修改数据
+           */
+          for(let i = 0; i < cahrtTemplate[store.state.preChartType].series.length; i++)
+          watch(()=>cahrtTemplate[store.state.preChartType].series[i].data,
+          ()=>{
+            preChart.setOption(cahrtTemplate[store.state.preChartType])
+            store.state.myChart = preChart
+          })
+        }
+    })
     return{
 
     }

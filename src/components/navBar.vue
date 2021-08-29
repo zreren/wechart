@@ -134,7 +134,7 @@ export default {
             tags:[],
             collect:66,
             getNum:66,
-            userId:'chartuser816700',
+            userId:'3035816700@qq.com',
             userName:'Aei'
         })
         async function share() {            

@@ -1,6 +1,4 @@
-import { ref } from 'vue';
-
-const pie = ref({
+const pie = {
     title: {
         text: '某站点用户访问来源',
         left: 'center'
@@ -26,6 +24,6 @@ const pie = ref({
             ]
         }
     ]
-})
+}
 
 export {pie} 

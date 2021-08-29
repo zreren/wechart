@@ -1,5 +1,4 @@
 <template>
-{{data}}
   <a-form v-if="visible" :model="formState" v-bind="formItemLayout">
     <a-form-item label="Field A">
       <a-input v-model:value="formState.fieldA" placeholder="input placeholder" />

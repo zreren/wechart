@@ -11,7 +11,8 @@
       </el-aside>
       <el-container>
         <el-header>
-            <edit-main/>
+            <!-- 通过v-if在表格的type切换的时候，销毁再重新渲染组件，从而优雅的实现重置监听 -->
+            <edit-main v-if="isShow" />
         </el-header>
         <el-main>
             <data-edit/>
@@ -28,6 +29,8 @@ import DataEdit from '../components/Edit/DataEdit.vue'
 import CheckBox from '../components/Edit/CheckBox.vue'
 // import Upload from '../components/Edit/ChartUpload.vue'
 import {useRouter} from 'vue-router'
+import { watch, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
     name:'Edit',
     components: {
@@ -37,6 +40,7 @@ export default {
       // Upload,
     },
     setup() {
+      const store = useStore()
       const route = useRouter()
       /**
        * 防止意外刷新和关闭页面
@@ -66,8 +70,20 @@ export default {
           route.push('/edit/theme')
         }
       }
+
+      
+      //通过v-if在表格的type切换的时候，销毁再重新渲染组件，从而优雅的实现组件重置监听 
+      const isShow = ref(false)
+      watch(()=>store.state.preChartType,()=>{
+        if(store.state.preChartType === 'other')
+          isShow.value = false
+        else
+          isShow.value = true
+      })
+
       return {
         changeMenuType,
+        isShow
       }
     }
 }

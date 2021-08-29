@@ -17,13 +17,13 @@ const scatter = {
     series: [
     {
         name:'企业A',
-        symbolSize: 20,
+        symbolSize: 15,
         data:[[11,9.5],[15.5,11.9],[20.3,20.5],[33.5,32.1],[38.9,37.5]],
         type: 'scatter'
     },
     {
         name:'企业B',
-        symbolSize: 20,
+        symbolSize: 15,
         data:[[8.6,7.7],[12,11.8],[22.8,20],[33.9,32.99],[44.5,43.2]],
         type: 'scatter'
     },

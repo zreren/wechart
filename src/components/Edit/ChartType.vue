@@ -51,8 +51,8 @@
     </el-popover>
      </div> 
    <el-divider></el-divider>
-   <img class="box" @click="changePie('60%')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/1a787c1712bf1cac_1630055252792.png" alt="">
-   <img class="box" @click="changePie(['30%','60%'])" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/91e025d56fcd5b52_1630055256279.png" alt="">
+   <img class="box" @click="changePie('70%')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/1a787c1712bf1cac_1630055252792.png" alt="">
+   <img class="box" @click="changePie(['30%','70%'])" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/91e025d56fcd5b52_1630055256279.png" alt="">
 </template>
 
 <script>

@@ -1,7 +1,8 @@
 const state =  {
     preChartType:'other',
     myChart:{},
-    theme:'westeros'
-}
+    theme:'westeros',
+    act:0
+}   
 
 export default state 

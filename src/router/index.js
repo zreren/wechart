@@ -3,6 +3,13 @@ import state from '../store/state'
 import Home from '../views/Home.vue'
 import { ElMessage } from 'element-plus'
 import { ElMessageBox } from 'element-plus'
+import { cahrtTemplate } from '../common/chart/chart' 
+import { bar } from '../common/chart/all/bar'
+import { line } from '../common/chart/all/line'
+import { pie } from '../common/chart/all/pie'
+import { scatter } from '../common/chart/all/scatter'
+
+
 const Explore = () => import('../views/Explore.vue')
 const Edit = () => import('../views/Edit.vue')
 const Community = () => import('../views/Community.vue')
@@ -13,6 +20,7 @@ const Login = () => import('../views/Login.vue')
 const ChartType = () => import('../components/Edit/ChartType.vue')
 const ChartTheme = () => import('../components/Edit/ChartTheme.vue')
 const ChartUpload = ()=>import('../components/Edit/ChartUpload.vue')
+
 const routes = [
   {
     path: '/',
@@ -106,6 +114,15 @@ router.beforeEach(async (to,from)=>{
     }
   }
   return true
+})
+router.afterEach(async (to,from) => {
+    if(from.name === 'Home' && (to.name === 'ChartType' || to.name === 'Edit')) {
+      state.preChartType = 'other'
+      cahrtTemplate.bar = bar
+      cahrtTemplate.line = line
+      cahrtTemplate.pie = pie
+      cahrtTemplate.scatter = scatter
+    }
 })
 
 export default router

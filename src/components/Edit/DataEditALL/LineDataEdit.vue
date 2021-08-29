@@ -1,6 +1,6 @@
 <template>
   <div v-if="!visible">
-    <a-table style="width:94%" bordered :data-source="dataSource" :columns="columns" :pagination="false">
+    <a-table style="width:97%" bordered :data-source="dataSource" :columns="columns" :pagination="false">
       <template #customTite>
           <!-- <div v-if="editableData[chartTitle]" class="editable-cell-input-wrapper">
             <a-input v-model:value="editableData[chartTitle]" @pressEnter="saveTitle" />
@@ -10,7 +10,7 @@
             {{ chartTitle || ' ' }}
             <edit-outlined class="editable-cell-icon" @click="editTitle" />
           </div> -->
-          <div @click="changeTitle">
+          <div style="cursor:pointer"  @click="changeTitle">
             {{chartTitle}}
           </div>
       </template>
@@ -29,19 +29,30 @@
     </template>
     </a-table>
 
-    <a-button class="editable-add-btn" @click="handleAdd" style="width: 100%;">Add</a-button>
-    <a-popconfirm v-if="dataSource.length" title="确定删除最后一行吗" @confirm="onDelete">
-      <a-button  style="width:100%" >Delete</a-button>
+   
+    <a-popconfirm  v-if="dataSource.length > 1" title="确定删除最后一行吗" @confirm="onDelete">
+      <a-button   style="width:48.5%;" ><i class="el-icon-minus"></i></a-button>
     </a-popconfirm>
+    <a-button v-else class="editable-add-btn" @click="handleAdd" style="width: 100%;"><i class="el-icon-plus" style=""></i></a-button>
+    <a-button v-if="dataSource.length > 1" class="editable-add-btn" @click="handleAdd" style="width: 48.5%; margin-right:3%;"><i class="el-icon-plus" style=""></i></a-button>
+    
     <div class="aditColum">
       <a-popconfirm v-if="columns.length > 1" title="确定删除最后一列吗" @confirm="deleteColumn">
-      <a-button  id="minus" style="width:50%;height:100%;padding:0;" ><i class="el-icon-minus"></i></a-button>
+      <a-button  id="minus" style="width:100%;height:50%;padding:0;" ><i class="el-icon-minus"></i></a-button>
       </a-popconfirm>
       <a-button  v-else @click="addColumn" style="width:100%;height:100%; padding:0;"><i class="el-icon-plus" style=""></i></a-button>
-      <a-button v-if="columns.length > 1"  @click="addColumn" style="width:50%;height:100%; padding:0;"><i class="el-icon-plus" style=""></i></a-button>
+      <a-button v-if="columns.length > 1"  @click="addColumn" style="width:100%;height:50%; padding:0;"><i class="el-icon-plus" style=""></i></a-button>
     </div>
   </div>
   <a-form v-if="visible" style="margin-top:15px;" :model="formState" v-bind="formItemLayout">
+    <div style="display:flex;">
+    <a-form-item style="width:50%;" label="X轴" >
+      <a-input v-model:value="xData" placeholder="input placeholder" />
+    </a-form-item>
+    <a-form-item style="width:50%;" label="Y轴" >
+      <a-input v-model:value="yData" placeholder="input placeholder" />
+    </a-form-item>
+    </div>
     <a-form-item v-for="(item,index) in formState" :key="index"  :label="item.name" >
       <a-input v-model:value="item.data" placeholder="input placeholder" />
     </a-form-item>
@@ -52,7 +63,6 @@
   </a-form>
    <i @click="editData" class="el-icon-edit editData"></i>
    <i @click="$router.push('/edit/upload')" index="1" class="el-icon-upload upload"></i><!-- <upload/> -->
-
 </template>
 <script>
 import { computed, defineComponent, reactive, ref } from 'vue';
@@ -69,6 +79,8 @@ export default defineComponent({
   },
   setup() {
     let columnNum = 7
+    const xData = ref('星期')
+    const yData = ref('降雨量(ml)')
     const visible = ref(false)
     const store = useStore()
     const columns = ref([
@@ -133,7 +145,9 @@ export default defineComponent({
       },
     ]);
 
-    
+    /**
+     * 修改数据集名
+     */
     const count = computed(() => dataSource.value.length + 1);
     const editableData = reactive({});
     const edit = key => {
@@ -142,7 +156,9 @@ export default defineComponent({
 
     const save = key => {
       Object.assign(dataSource.value.filter(item => key === item.key)[0], editableData[key]);
+      cahrtTemplate[store.state.preChartType].series[key].name = editableData[key].name
       delete editableData[key];
+      store.state.act = Math.random()
     };
 
     /**
@@ -259,7 +275,7 @@ export default defineComponent({
     }
     function handleOk() {
       for(let i = 0; i < formState.value.length; i++)
-      formState.value[i].data = formState.value[i].data.split(',').map(item=>{return parseInt(item) })
+      formState.value[i].data = formState.value[i].data.split(',').map(item=>{return parseFloat(item) })
       for(let i = 0; i < formState.value.length; i++){
         for(let j = 0; j < columnNum; j++){
           dataSource.value[i][j] = formState.value[i].data[j]
@@ -268,6 +284,8 @@ export default defineComponent({
       for(let i = 0; i < formState.value.length; i++){
         cahrtTemplate[store.state.preChartType].series[i].data = formState.value[i].data
       }
+      cahrtTemplate[store.state.preChartType].xAxis.name = xData.value
+      cahrtTemplate[store.state.preChartType].yAxis.name = yData.value
       visible.value = false
     }
 
@@ -288,7 +306,9 @@ export default defineComponent({
       formItemLayout,
       handleOk,
       editData,
-      onDelete
+      onDelete,
+      xData,
+      yData
     };
   },
 });
@@ -311,12 +331,13 @@ export default defineComponent({
     color: #409eff;
   }
   .aditColum {
-  display: flex;
-  width: 6%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 3%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   .ant-input {
     border: 0;

@@ -33,8 +33,8 @@
         <i class="el-icon-search" style=""></i>
       </div>
     </div>
-    <div v-if="!show">
-       这是一个加载页面
+    <div v-if="!show" class="loading">
+      <el-table v-loading.fullscreen.lock="!show"></el-table>
     </div>
     <div class="divBody" v-show="show">
       <div class="bodyContainer">
@@ -123,6 +123,7 @@ export default {
       infoData: {},
       show:false,
     });
+    let loadingData=ref("正在飞速加载中...");
     let searchText=ref('');
     onMounted(() => {
      
@@ -172,7 +173,8 @@ export default {
       textLink,
       searchText,
       ...toRefs(data),
-      searchList
+      searchList,
+      loadingData
     };
   },
 };
@@ -236,6 +238,11 @@ export default {
         outline: none;
       }
     }
+  }
+  .loading{
+    margin: 0 auto;
+    height: 100%;
+
   }
   .divBody {
     display: flex;

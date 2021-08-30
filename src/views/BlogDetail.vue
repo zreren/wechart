@@ -1,12 +1,15 @@
 <template>
   <div class="container">
     <div class=" catalog ">
+     
         <ul >
+          <li><el-button icon="el-icon-back" @click="back" circle></el-button></li>
           <li>目录</li>
-          <li v-for="item in catalog" :key="item"
+          <li id="list" v-for="item in catalog" :key="item"
            @click="changeHash(`${item.id}`)"
            >{{item.text}}</li>
-        </ul>
+        </ul> 
+      
     </div>
     <div class="content">
       <h1 style="color：#233062">{{title}}</h1>
@@ -17,7 +20,6 @@
       </div>
       <div id="main">
       </div>
-      
     </div>
    <div class="bottom">
      <div class="title"><h2>相关文章：</h2></div> 
@@ -30,7 +32,7 @@
 import bodyBottom from '../components/Explorechild/body' 
 import { getExploreInfo } from '../api/Expliore'
 import {onMounted, reactive, toRefs} from "vue"
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter,onBeforeRouteUpdate} from 'vue-router'
 export default {
   data() {
     return {
@@ -53,6 +55,7 @@ export default {
   },
   setup(){
     const route = useRoute()
+    const router=useRouter()
     const info = reactive({
       author:"",
       title:"",
@@ -73,7 +76,6 @@ export default {
      }
 
     onMounted(()=>{
-      
       getExploreInfo({'id':`${route.params.id}`}).then(res=>{
         document.getElementById('main').innerHTML=res.result[0].content_main
         console.log(res.result)
@@ -88,9 +90,31 @@ export default {
         info.catalog=res.result[0].tagArr
       })
     })
+     onBeforeRouteUpdate( (to, from) => {
+        console.log(from.path);
+        getExploreInfo({'id':to.params.id}).then(res=>{
+          document.getElementById('main').innerHTML=res.result[0].content_main
+          console.log(res.result)
+          info.author=res.result[0].autho
+         info.title=res.result[0].title
+         info.content=res.result[0].content
+         info.c_type=res.result[0].c_type
+         info.pic_type=res.result[0].pic_type
+         info.creatTime=res.result[0].updatedAt
+         info.collect=res.result[0].collect
+         info.collect=res.result[0].collect
+         info.catalog=res.result[0].tagArr
+        });
+        document.getElementsByClassName("container")[0].scrollIntoView(true);
+        
+    })
+    function back(){
+      router.go(-1);
+    }
     return {
        changeHash,
-      ...toRefs(info)
+      ...toRefs(info),
+      back
     }
   }
 }
@@ -150,6 +174,10 @@ export default {
       text-align: left;
       color: #555785;
       margin-top: 1vh;
+    }
+    #list:hover{
+      color: rgb(34, 34, 73);
+      font-size: 16px;
     }
   } 
   .bottom{

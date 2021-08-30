@@ -24,7 +24,7 @@
 <script>
 import {onMounted,toRefs,reactive} from "vue"
 import {  getExpore } from "../../api/Expliore"
-import {useRouter} from 'vue-router'
+import {useRouter,onBeforeRouteUpdate} from 'vue-router'
 export default {
   data () {
     return {
@@ -40,8 +40,13 @@ export default {
               data.infoData= res.result.slice(0,2)
           })
       })
+      onBeforeRouteUpdate( (to, from) => {
+        //router.go(0);
+        console.log(to.path);
+        console.log(from.path);
+    })
       function textLink(id){
-         router.push({path:`/blog/detail/${id}` })
+         router.push({path: `./${id}`}).then;
       }
       return{
           textLink,

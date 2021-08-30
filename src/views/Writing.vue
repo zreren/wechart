@@ -20,7 +20,7 @@
         </div>
         <div  class="title">
             文章类型:
-          <el-select size="mini" v-model="c_type" placeholder="请选择" style="width:35vw;">
+          <el-select size="mini" v-model="c_type" multiple placeholder="请选择" style="width:35vw;">
             <el-option
               v-for="item in  dataList" :key="item.value"
               :label="item.name"
@@ -30,7 +30,7 @@
         </div>
         <div  class="title">
             图表类型:
-            <el-select size="mini" v-model="pic_type" placeholder="请选择" style="width:35vw;">
+            <el-select size="mini" v-model="pic_type" multiple placeholder="请选择" style="width:35vw;">
               <el-option
                 v-for="item in   typeList" :key="item.value"
                 :label="item.name"
@@ -40,7 +40,6 @@
         </div>
     </div>
     <el-button @click="editorSubmit" type="primary" style=" width:150px">提交</el-button>
-    <el-button @click="reset" type="primary" style=" width:150px">重置</el-button>
      
     <div>
         <div id="editor"></div>
@@ -124,8 +123,8 @@ export default {
       author:"",
       title:"",
       content:"",//标题内容
-      c_type:"",//文章类型
-      pic_type:"",//图表类型
+      c_type:[],//文章类型
+      pic_type:[],//图表类型
       img_url:"",//封面链接
       content_main:"",//文章html
       tagArr:[]
@@ -158,9 +157,6 @@ export default {
       }
       editor.create()
     });
-    const reset=()=>{
-    //  editor.txt.clear()  
-    }
     const editorSubmit=()=>{
       if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
@@ -189,7 +185,6 @@ export default {
     }
     
     return{
-      reset,
       editorSubmit,
       ...toRefs(infoData)
     }
@@ -210,6 +205,11 @@ export default {
         .title{
         display: flex;
         margin: 10px;
+        padding: 10px;
+        el-input{
+          display: block;
+          padding: 8px;
+        }
     }
     }
   

@@ -2,23 +2,23 @@
 <body>
 <div class="container" id="container">
  <div class="form-container sign-up-container">
-  <form action="#">
+  <form  @submit.prevent="()=>false">
    <h1>Create Account</h1>
    <span>or use your email for registration</span>
-   <input type="text" placeholder="Name" />
-   <input type="email" placeholder="Email" />
-   <input type="password" placeholder="Password" />
-   <button>Sign Up</button>
+   <input v-model="userName" type="text" placeholder="Name" />
+   <input v-model="userId" type="email" placeholder="Email" />
+   <input v-model="password" type="password" placeholder="Password" />
+   <button @click="toSignUp">Sign Up</button>
   </form>
  </div>
  <div class="form-container sign-in-container">
-  <form action="#">
+  <form @submit.prevent="()=>false">
    <h1>Sign in</h1>
    <span>or use your account</span>
-   <input type="email" placeholder="Email" />
-   <input type="password" placeholder="Password" />
+   <input type="email" v-model="userId"  placeholder="Email" />
+   <input type="password" v-model="password" placeholder="Password" />
    <a href="#">Forgot your password?</a>
-   <button>Sign In</button>
+   <button @click="toSignIn">Sign In</button>
   </form>
  </div>
  <div class="overlay-container">
@@ -43,29 +43,113 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { onMounted,ref } from 'vue';
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { useStore } from 'vuex'
+import signUp from '../http/signUp'
+import signIn from '../http/signIn'
 export default {
     name:'Login',
     
     setup() {
-
-
+    let router = useRouter()
+    let store = useStore()
+    /**
+     * 页面样式js
+     */
     let container;
-
     onMounted(()=>{
         container = document.getElementById('container');
     })
-
     function signUpChange() {
         container.classList.add("right-panel-active");
     }
     function signInChange() {
         container.classList.remove("right-panel-active");
     }
-     
+
+    /**
+     * 页面逻辑
+     */
+    /**
+     * 注册组件
+     */
+    const userName = ref('')
+    const userId = ref('')
+    const password = ref('')
+    async function toSignUp() {
+        try{
+            const res =  await signUp({
+            userName:userName.value,
+            userId:userId.value,
+            password:password.value
+            })
+            if(res.status === '200')
+            {
+            ElMessage.success({
+            message: '恭喜你，注册成功',
+            type: 'success'
+            })
+            userName.value = ''
+            userId.value = ''
+            password.value = ''
+            container.classList.remove("right-panel-active")
+            }
+            else
+            ElMessage.warning({
+            message: `${res.msg}`,
+            type: 'warning'
+            })
+        }
+        catch(err){
+            console.log(err)
+            ElMessage.error('出错了！')
+        }
+    }
+
+    /**
+     * 登录
+     */
+    async function toSignIn() {
+        try{
+            const res = await signIn({
+                userId:userId.value,
+                password:password.value
+            })
+            if(res.status === '200')
+            {
+                ElMessage.success({
+                message: '登陆成功',
+                type: 'success'
+                })
+                userId.value = ''
+                password.value = ''
+                localStorage.setItem('token',res.token)
+                store.state.isSignIn = true
+                router.push('/')
+            }
+            else
+            ElMessage.warning({
+            message: `${res.msg}`,
+            type: 'warning'
+            })
+        }
+        catch(err) {
+            console.log(err)
+            ElMessage.error('出错了！')
+        }
+    }
+
+
     return {
         signUpChange,
-        signInChange
+        signInChange,
+        toSignUp,
+        userName,
+        userId,
+        password,
+        toSignIn
     }
      
     }

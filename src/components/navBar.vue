@@ -8,12 +8,14 @@
     <el-menu-item  @click="$router.push('/community')" index="3">广场</el-menu-item>
     <el-menu-item  @click="$router.push('/writing')" index="4">分享啦~</el-menu-item>
     </el-menu>
-    <div class="userImg"></div>
+    <img  v-if="isSignIn" class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
+    <div  v-else class="userImg" @click="logIn()"></div>
     <el-button style="margin-right:14px" size="medium"  type="primary" round @click="$router.push('/edit')">制图</el-button>
     </div>
     <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="share" id="shareBtn">分享</el-button>
     <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="download">保存</el-button>
-    <div class="userImg" v-show="!isShow"></div>
+    <div  @click="logIn()" class="userImg" v-show="!isShow && !isSignIn"></div>
+    <img  v-show="!isShow && isSignIn" class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
     <router-link to="/" class="logo">WeChart</router-link>
     </main>
     
@@ -49,18 +51,20 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, onUpdated, reactive, ref, watch } from 'vue'
 import { ElNotification } from 'element-plus';
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter} from 'vue-router'
 import { useStore } from 'vuex'
 import {shareSave} from '../http/share'
+import judgeExpired from '../http/judgeExpired'
+import { ElMessage } from 'element-plus'
 import downloadFile from '../common/download/download.js'
 export default {
     name:'navBar',
     setup() {
         const route = useRoute()
+        const router = useRouter()
         const store = useStore()
-        
         const activeIndex = ref('0');
         const isShow = ref(true)
         const routerNow = {
@@ -69,6 +73,34 @@ export default {
                     Community:'3',
                     BlogDetail:'2',
                 }
+
+        /**
+         * 判断登录
+         */
+        const isSignIn = ref(false)
+        onUpdated(async ()=>{
+            console.log('ss')
+            try{
+                const res = await judgeExpired({token:localStorage.getItem('token')})
+                if(res.status === '403')
+                if(res.result.data.message === 'jwt expired'){
+                    ElMessage.warning('登陆过期了哦')
+                    store.state.isSignIn = false
+                    isSignIn.value = false
+                    return
+                }
+                if(res.status === '200'){
+                    store.state.isSignIn = true
+                }
+            }
+            catch(err) {
+                ElMessage.error('出错啦！')
+            }
+        })
+        watch(()=>store.state.isSignIn,()=>{
+            isSignIn.value = store.state.isSignIn
+        })
+
         /**
          * 判断当前页面是否需要显示主页，发现，广场
          * 根据路由变化更改当前el-menu的index
@@ -137,7 +169,28 @@ export default {
             userId:'3035816700@qq.com',
             userName:'Aei'
         })
-        async function share() {            
+        async function share() {     
+            if(!store.state.isSignIn){
+                ElMessage.warning('还未登录哦')
+                return
+            }
+            try{
+                const res = await judgeExpired({token:localStorage.getItem('token')})
+                if(res.status === '403')
+                if(res.result.data.message === 'jwt expired'){
+                    ElMessage.warning('登陆过期了哦')
+                    store.state.isSignIn = false
+                    isSignIn.value = false
+                    return
+                }
+                if(res.status === '200'){
+                    shareData.userId = res.result.userId
+                    shareData.userName = res.result.userName
+                }
+            }
+            catch(err) {
+                ElMessage.error('出错啦！')
+            }
             document.getElementById('shareBtn').disabled = true
             shareDialog.img = await store.state.myChart.getDataURL()
             document.getElementById('shareBtn').disabled = false
@@ -171,6 +224,13 @@ export default {
             dialogFormVisible.value = false
         }
 
+        /**
+         * 登录
+         */
+        async function logIn() {
+            router.push('/login')
+        }
+
         return {
         activeIndex,
         isShow,
@@ -180,6 +240,8 @@ export default {
         tags,
         dialogFormVisible,
         toShare,
+        isSignIn,
+        logIn
         };
     }
 }
@@ -221,6 +283,13 @@ export default {
             width: 34px;
             border-radius: 50%;
             background: #C4C4C4;
+            margin-left: 28px;
+            margin-right: 28px;
+            cursor: pointer;
+        }
+        .isImg {
+            height: 34px;
+            background: white;
             margin-left: 28px;
             margin-right: 28px;
         }

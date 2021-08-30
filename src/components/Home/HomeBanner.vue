@@ -5,7 +5,7 @@
         <div class="content">
             <h1>更快更便捷的在线数据处理服务</h1>
             <h2>一站式数据服务，解决去哪找数据，做什么样的数据，怎么做数据的困扰。在线编辑图标，实时更新动态，即使下载成果进行应用</h2>
-            <el-button class="bannerBtn" @click="$router.push('/signup')">立即注册</el-button>
+            <el-button class="bannerBtn" @click="$router.push('/login')">立即注册</el-button>
             <el-button type = "primary" class="bannerBtn" @click="$router.push('/edit')">绘制图表</el-button>
         </div>
     </header>
@@ -55,13 +55,14 @@ export default {
             font-family: 'Ubuntu';
             top: 88px;
             text-align: center;
-            color: #f2f3f8;
             h1 {
+                color: #f2f3f8;
                 margin-bottom: 18px;
                 font-size: 48px;
                 font-weight: 500;
             }
             h2 {
+                color: #f2f3f8;
                 font-size: 20px;
                 font-weight: 250;
                 margin-bottom: 40px;

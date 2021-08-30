@@ -28,7 +28,7 @@ import EditMain from '../components/Edit/EditMain.vue'
 import DataEdit from '../components/Edit/DataEdit.vue'
 import CheckBox from '../components/Edit/CheckBox.vue'
 // import Upload from '../components/Edit/ChartUpload.vue'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import { watch, ref } from 'vue'
 import { useStore } from 'vuex'
 export default {
@@ -41,20 +41,22 @@ export default {
     },
     setup() {
       const store = useStore()
-      const route = useRouter()
-      /**
-       * 防止意外刷新和关闭页面
-       */
-      // window.onbeforeunload=function(e){     
-      //   if(route.name == 'ChartType' || route.name == 'ChartEdit'){
-      //     e = e || window.event;
-      //     if (e) {
-      //         // 兼容IE8和Firefox 4之前的版本
-      //         e.returnValue = "当前内容未保存，确认离开？";
-      //     }
-      //     return "当前内容未保存，确认离开？";
-      //   }
-      // }
+      const route = useRoute()
+      const router = useRouter()
+
+      window.onbeforeunload=function(e){     
+
+        if(route.name == 'ChartType' || route.name == 'ChartEdit'){
+          e = e || window.event;
+          if (e) {
+              // 兼容IE8和Firefox 4之前的版本
+              e.returnValue = "当前内容未保存，确认离开？";
+          }
+          return "当前内容未保存，确认离开？";
+        }
+      }
+
+
       /**
        * 设置工具栏的活跃状态
        */
@@ -62,12 +64,12 @@ export default {
         if(index == 1){
           document.getElementById('menuTypeItem1').classList.add('menuActive')
           document.getElementById('menuTypeItem2').classList.remove('menuActive')
-          route.push('/edit')
+          router.push('/edit')
         }
         else{
           document.getElementById('menuTypeItem2').classList.add('menuActive')
           document.getElementById('menuTypeItem1').classList.remove('menuActive')
-          route.push('/edit/theme')
+          router.push('/edit/theme')
         }
       }
 

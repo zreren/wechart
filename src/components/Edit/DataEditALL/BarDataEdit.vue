@@ -307,6 +307,7 @@ export default defineComponent({
 </script>
 <style lang="less">
   .editData {
+    cursor: pointer;
     z-index: 10;
     position: fixed;
     top: 130px;
@@ -315,6 +316,7 @@ export default defineComponent({
     color: #409eff;
   }
   .upload {
+    cursor: pointer;
     z-index: 10;
     position: fixed;
     top: 80px;

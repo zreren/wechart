@@ -8,7 +8,7 @@ import { bar } from '../common/chart/all/bar'
 import { line } from '../common/chart/all/line'
 import { pie } from '../common/chart/all/pie'
 import { scatter } from '../common/chart/all/scatter'
-
+import deepClone from '../common/deepClone'
 
 const Explore = () => import('../views/Explore.vue')
 const Edit = () => import('../views/Edit.vue')
@@ -113,16 +113,14 @@ router.beforeEach(async (to,from)=>{
       }
     }
   }
+  if(from.name === 'Home' && (to.name === 'ChartType' || to.name === 'Edit')) {
+    state.preChartType = 'other'
+    cahrtTemplate.bar = deepClone(bar)
+    cahrtTemplate.line = deepClone(line)
+    cahrtTemplate.pie = deepClone(pie)
+    cahrtTemplate.scatter = deepClone(scatter)
+  }
   return true
-})
-router.afterEach(async (to,from) => {
-    if(from.name === 'Home' && (to.name === 'ChartType' || to.name === 'Edit')) {
-      state.preChartType = 'other'
-      cahrtTemplate.bar = bar
-      cahrtTemplate.line = line
-      cahrtTemplate.pie = pie
-      cahrtTemplate.scatter = scatter
-    }
 })
 
 export default router

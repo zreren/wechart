@@ -8,14 +8,18 @@
     <el-menu-item  @click="$router.push('/community')" index="3">广场</el-menu-item>
     <el-menu-item  @click="$router.push('/writing')" index="4">分享啦~</el-menu-item>
     </el-menu>
-    <img  v-if="isSignIn" class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
+    <el-tooltip v-if="isSignIn" :content="'你已登录:'+userName" placement="bottom" effect="light">
+    <img   class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
+    </el-tooltip>
     <div  v-else class="userImg" @click="logIn()"></div>
     <el-button style="margin-right:14px" size="medium"  type="primary" round @click="$router.push('/edit')">制图</el-button>
     </div>
     <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="share" id="shareBtn">分享</el-button>
     <el-button  v-show="!isShow" style="margin-right:14px" size="medium"  type="primary" round @click="download">保存</el-button>
     <div  @click="logIn()" class="userImg" v-show="!isShow && !isSignIn"></div>
-    <img  v-show="!isShow && isSignIn" class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
+    <el-tooltip  v-if="!isShow && isSignIn" :content="'你已登录:'+userName" placement="bottom" effect="light">
+    <img  class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
+    </el-tooltip>
     <router-link to="/" class="logo">WeChart</router-link>
     </main>
     
@@ -78,8 +82,8 @@ export default {
          * 判断登录
          */
         const isSignIn = ref(false)
+        const userName = ref('')
         onUpdated(async ()=>{
-            console.log('ss')
             try{
                 const res = await judgeExpired({token:localStorage.getItem('token')})
                 if(res.status === '403')
@@ -91,6 +95,7 @@ export default {
                 }
                 if(res.status === '200'){
                     store.state.isSignIn = true
+                    userName.value = res.result.userName
                 }
             }
             catch(err) {
@@ -241,7 +246,8 @@ export default {
         dialogFormVisible,
         toShare,
         isSignIn,
-        logIn
+        logIn,
+        userName
         };
     }
 }

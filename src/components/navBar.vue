@@ -215,6 +215,8 @@ export default {
                 message: '分享内容可在分享大厅查看',   
                 position: 'bottom-right'
                 });
+                shareDialog.title = ''
+                shareDialog.description = ''
             }catch(error)
             {
                 console.error(error)

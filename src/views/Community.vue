@@ -82,7 +82,7 @@
             <div class="head-img">
               <img
                 class="img"
-                src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png"
+                src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/4c17df5d0a3daf64_1630413232491.png"
                 alt="头像加载失败"
               />
             </div>
@@ -378,19 +378,21 @@ export default {
       width: 22%;
       min-width: 300px;
       .viewimg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 90%;
         width: 100%;
         border-radius: 15px;
         box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
           rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
         img {
-          padding: 10px;
-          height: 100%;
+          padding: 3px;
           width: 100%;
         }
       }
       .viewimg:hover {
-        transform: scale(1.2);
+        transform: scale(1.02);
         transition: 0.3s;
       }
       .viewtext {

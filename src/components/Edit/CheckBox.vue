@@ -1,6 +1,6 @@
 <template>
     <div class="mask"></div>
-    <div id="checkBoxF" style="position:absolute;top:15%;left:0;width:100%;display:flex;justify-content:center">
+    <div id="checkBoxF" style="position:absolute;top:6%;left:0;width:100%;display:flex;justify-content:center">
     <div class="checkBox">
       <h3>请选择需要制作的图表类型</h3>
       <div @click="checkType('line')" class="line">
@@ -105,7 +105,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 750px;
+    width: 720px;
     z-index: 9;
     background: rgba( 255, 255, 255, 0.95 );
     box-shadow: 0 8px 32px 0 rgba(48, 53, 126, 0.37);
@@ -118,16 +118,14 @@ export default {
       flex-basis: 40%;
       height: 225px;
       color: white;
-
       background: rgba(67, 107, 153, 0.842); //各类图标的未选中状态的背景图
-
       box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
       backdrop-filter: blur( 8.0px );
       -webkit-backdrop-filter: blur( 8.0px );
       border-radius: 10px;
       border: 1px solid rgba( 255, 255, 255, 0.18 );
       margin-bottom:36px;
-      padding: 18px 48px 6px 48px;
+      padding: 18px 36px 6px 36px;
       transition:ease-in-out 0.5s;
       line-height: 18px;
       cursor:pointer;
@@ -138,7 +136,7 @@ export default {
         font-size: 12px;
       }
       .icon {
-        margin-left: 50%-36px;
+        margin-left: 50%-32px;
         width: 144px;
         height: 122px;
         border-radius: 8px;

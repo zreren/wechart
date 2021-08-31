@@ -65,7 +65,7 @@
     .uploadBox {
     display: flex;
     flex-direction: column;
-    width: 750px;
+    width: 720px;
     height: 420px;
     z-index: 9;
     background: rgba( 255, 255, 255, 0.95 );

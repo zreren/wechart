@@ -109,7 +109,7 @@ export default {
         
     })
     function back(){
-      router.go(-1);
+      router.push({path: `/explore`});
     }
     return {
        changeHash,

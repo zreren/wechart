@@ -6,7 +6,6 @@
     <el-menu-item  @click="$router.push('/')" index="1">主页</el-menu-item>    
     <el-menu-item  @click="$router.push('/explore')" index="2">发现</el-menu-item>
     <el-menu-item  @click="$router.push('/community')" index="3">广场</el-menu-item>
-    <el-menu-item  @click="$router.push('/writing')" index="4">分享啦~</el-menu-item>
     </el-menu>
     <el-tooltip v-if="isSignIn" :content="'你已登录:'+userName" placement="bottom" effect="light">
     <img   class="isImg" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/2dedbafcccf601c4_1630335837047.png" alt="">
@@ -176,8 +175,8 @@ export default {
             title:'default',
             description:'default',
             tags:[],
-            collect:66,
-            getNum:66,
+            collect:0,
+            getNum:0,
             userId:'3035816700@qq.com',
             userName:'Aei'
         })

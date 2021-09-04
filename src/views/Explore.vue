@@ -1,4 +1,5 @@
 <template>
+  <img  class="upload"  @click="$router.push('/writing')" src="https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qc5abu/ec764c8140385ab7_1630760604443.png" alt="">
   <div class="main">
     <Content></Content>
   </div>
@@ -18,9 +19,20 @@ export default {
 
 
 <style lang="less" scoped>
-.main{
+.main {
   width: 100vw;
   height:auto;
   overflow: hidden;
 }
+.upload {
+  position: fixed;
+  cursor: pointer;
+  bottom: 60px;
+  right: 60px;
+  width: 65px;
+  transition: .8s;
+}
+.upload:hover {
+  transform: scale(1.05);
+} 
 </style>

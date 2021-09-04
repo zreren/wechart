@@ -46,7 +46,7 @@ export default {
         console.log(from.path);
     })
       function textLink(id){
-         router.push({path: `./${id}`}).then;
+         router.push({path: `./${id}`});
       }
       return{
           textLink,

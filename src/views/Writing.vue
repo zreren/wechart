@@ -2,25 +2,30 @@
   <div class="container">
       <!-- inpput框 -->
     <div class="imput">
-      <div class="title">
+      <!-- <div class="title">
             作者名字:
-            <el-input v-model="author" size="mini" style="width:35vw;"></el-input>
-        </div>
+            <el-input v-model="userName" size="mini" style="width:35vw;"></el-input>
+        </div> -->
         <div class="title">
-            文章标题:
-            <el-input v-model="title" size="mini" style="width:35vw;"></el-input>
+            
+            <el-input v-model="title" size="middle" style="width:80%;" placeholder="輸入您的文章标题"></el-input>
+              <el-button @click="editorSubmit" type="primary" style=" width:20%;height=30px;margin=30px">提交</el-button>
         </div>
+        <!-- <div style="display:flex">
         <div  class="title">
             标题内容:
             <el-input v-model="content" size="mini" style="width:35vw;"></el-input>
         </div>
+      
         <div  class="title">
           文章封面:
             <el-input v-model="img_url" size="mini" style="width:35vw;"></el-input>
         </div>
+          </div> -->
+          
         <div  class="title">
-            文章类型:
-          <el-select size="mini" v-model="c_type" multiple placeholder="请选择" style="width:35vw;">
+            
+          <el-select size="mini" v-model="c_type" multiple placeholder="请选择文章类型" style="width:100%;margin-top:10px">
             <el-option
               v-for="item in  dataList" :key="item.value"
               :label="item.name"
@@ -29,8 +34,8 @@
           </el-select>
         </div>
         <div  class="title">
-            图表类型:
-            <el-select size="mini" v-model="pic_type" multiple placeholder="请选择" style="width:35vw;">
+          
+            <el-select size="mini" v-model="pic_type" multiple placeholder="请选择图表类型" style="width:100%;margin-top:10px;margin-bottom:10px">
               <el-option
                 v-for="item in   typeList" :key="item.value"
                 :label="item.name"
@@ -38,8 +43,9 @@
               </el-option>
              </el-select>
         </div>
+        
     </div>
-    <el-button @click="editorSubmit" type="primary" style=" width:150px">提交</el-button>
+  
      
     <div>
         <div id="editor"></div>
@@ -118,6 +124,29 @@ export default {
   components: {
   },
   setup(){
+        //獲取用戶名
+        // const isSignIn = ref(false)
+        // const userName = ref('')
+        // onUpdated(async ()=>{
+        //     try{
+        //         const res = await judgeExpired({token:localStorage.getItem('token')})
+        //         if(res.status === '403')
+        //         if(res.result.data.message === 'jwt expired'){
+        //             ElMessage.warning('登陆过期了哦')
+        //             store.state.isSignIn = false
+        //             isSignIn.value = false
+        //             return
+        //         }
+        //         if(res.status === '200'){
+        //             store.state.isSignIn = true
+        //             userName.value = res.result.userName
+        //         }
+        //     }
+        //     catch(err) {
+        //         ElMessage.error('出错啦！')
+        //     }
+        // })
+    
    
   let infoData = reactive({
       author:"",
@@ -160,6 +189,7 @@ export default {
     const editorSubmit=()=>{
       if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
+          // text_main:infoData.content,
           author:xss(infoData.author),
           content:xss(infoData.content),
           title:xss(infoData.title),

@@ -3,35 +3,35 @@
 <div class="container" id="container">
  <div class="form-container sign-up-container">
   <form  @submit.prevent="()=>false">
-   <h1>Create Account</h1>
-   <span>or use your email for registration</span>
+   <h1>注册你的账号</h1>
+   <span>输入信息进行注册</span>
    <input v-model="userName" type="text" placeholder="Name" />
-   <input v-model="userId" type="email" placeholder="Email" />
+   <input v-model="userId"  placeholder="Email" />
    <input v-model="password" type="password" placeholder="Password" />
-   <button @click="toSignUp">Sign Up</button>
+   <button @click="toSignUp">注册</button>
   </form>
  </div>
  <div class="form-container sign-in-container">
   <form @submit.prevent="()=>false">
-   <h1>Sign in</h1>
-   <span>or use your account</span>
-   <input type="email" v-model="userId"  placeholder="Email" />
+   <h1>登陆</h1>
+   <span>输入信息进行登陆</span>
+   <input  v-model="userId"  placeholder="Email" />
    <input type="password" v-model="password" placeholder="Password" />
-   <a href="#">Forgot your password?</a>
-   <button @click="toSignIn">Sign In</button>
+   <a href="#">忘记密码?</a>
+   <button @click="toSignIn">登陆</button>
   </form>
  </div>
  <div class="overlay-container">
   <div class="overlay">
    <div class="overlay-panel overlay-left">
-    <h1>Welcome Back!</h1>
-    <p>To keep connected with us please login with your personal info</p>
-    <button class="ghost" id="signIn" @click="signInChange">Sign In</button>
+    <h1 style="color:white">欢迎回来!</h1>
+    <p>登陆体验更多功能</p>
+    <button class="ghost" id="signIn" @click="signInChange">登陆</button>
    </div>
    <div class="overlay-panel overlay-right">
-    <h1>Hello, Friend!</h1>
-    <p>Enter your personal details and start journey with us</p>
-    <button class="ghost" id="signUp" @click="signUpChange">Sign Up</button>
+    <h1 style="color:white">你好，朋友!</h1>
+    <p>注册账号跟大家一起发现你的数据图表吧！</p>
+    <button class="ghost" id="signUp" @click="signUpChange">注册</button>
    </div>
   </div>
  </div>
@@ -49,6 +49,7 @@ import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 import signUp from '../http/signUp'
 import signIn from '../http/signIn'
+import md5 from 'js-md5';
 export default {
     name:'Login',
     
@@ -78,12 +79,13 @@ export default {
     const userName = ref('')
     const userId = ref('')
     const password = ref('')
+    let mdpassword = ref('')
     async function toSignUp() {
         try{
             const res =  await signUp({
             userName:userName.value,
             userId:userId.value,
-            password:password.value
+            password:md5(password.value),
             })
             if(res.status === '200')
             {
@@ -115,7 +117,7 @@ export default {
         try{
             const res = await signIn({
                 userId:userId.value,
-                password:password.value
+                password:md5(password.value),
             })
             if(res.status === '200')
             {
@@ -132,6 +134,7 @@ export default {
             else
             ElMessage.warning({
             message: `${res.msg}`,
+            console:password,
             type: 'warning'
             })
         }

@@ -40,13 +40,15 @@
             class="input"
             placeholder="搜索关键字"
             v-model="searchText"
+            @keyup.enter="searchClick"
           />
         </div>
-        <i class="el-icon-search" style="" @click="search"></i>
+        <i class="el-icon-search" style="" @click="searchClick"></i>
       </div>
     </div>
     <!-- 视图 -->
     <div class="divBodynull" v-if="infoData.length == 0">
+      y
       <el-empty description="暂无数据" :image-size="200"></el-empty>
     </div>
     <div class="divBody" v-show="show" v-else>
@@ -128,9 +130,9 @@
           <div class="main_img">
             <img :src="toRaw(dialogData[0].imageUrl)" alt="" />
           </div>
-        </div>
-        <div class="dialogContent">
-          {{ toRaw(dialogData[0].description) }}
+          <div class="dialogContent">
+            {{ toRaw(dialogData[0].description) }}
+          </div>
         </div>
       </div>
     </el-dialog>
@@ -140,7 +142,7 @@
 <script>
 import { ElMessage } from "element-plus";
 import { toRaw } from "@vue/reactivity";
-import { onMounted, toRefs, reactive, ref } from "vue";
+import { onMounted, toRefs, reactive } from "vue";
 import { getPlazaData } from "../api/Plaza";
 export default {
   data() {
@@ -205,8 +207,8 @@ export default {
       showDialog: false,
       dialogData: [],
       selectedIndex: 0,
+      searchText: "",
     });
-    let searchText = ref("");
     onMounted(() => {
       getPlazaData({}).then((res) => {
         data.infoData = res.result;
@@ -214,8 +216,8 @@ export default {
       });
     });
     //搜索
-    function search() {
-      getPlazaData({ type: searchText }).then((res) => {
+    function searchClick() {
+      getPlazaData({ searchText: data.searchText }).then((res) => {
         data.infoData = res.result;
       });
     }
@@ -275,8 +277,7 @@ export default {
       changeSort,
       changeType,
       like,
-      search,
-      searchText,
+      searchClick,
       ...toRefs(data),
     };
   },
@@ -340,7 +341,6 @@ export default {
         border-radius: 15px;
         background: #eef2f8;
         text-align: center;
-
         .input {
           vertical-align: top;
           text-align: right;
@@ -368,10 +368,11 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-content: flex-start;
     .view {
       cursor: pointer;
+      margin-left: 2%;
       margin-top: 3vh;
       height: 45%;
       min-height: 300px;
@@ -494,27 +495,29 @@ export default {
       }
     }
     .dialogImg {
+      overflow: scroll;
       width: 95%;
-      margin: 0 auto;
+      margin: 1% auto;
+      height: 90%;
       .main_img {
         margin: 1% auto;
-        width: 88%;
+        width: 85%;
         height: auto;
-        max-height: 58vh;
-        overflow: scroll;
+        text-align: center;
         img {
+          object-fit: contain;
           width: 100%;
-          height: 100%;
+          height: auto;
           max-height: 100%;
         }
       }
-    }
-    .dialogContent {
-      height: 18%;
-      width: 85%;
-      margin: 1% auto;
-      text-indent: 32px;
-      overflow: scroll;
+      .dialogContent {
+        font-size: 20px;
+        height: auto;
+        width: 80%;
+        margin: 2% auto;
+        text-indent: 32px;
+      }
     }
   }
 }

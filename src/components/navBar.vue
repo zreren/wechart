@@ -87,15 +87,22 @@ export default {
             try{
                 const res = await judgeExpired({token:localStorage.getItem('token')})
                 if(res.status === '403')
-                if(res.result.data.message === 'jwt expired'){
+                {
+                    if(res.result)
+                    if(res.result.data)
+                    if(res.result.data.message === 'jwt expired'){
                     ElMessage.warning('登陆过期了哦')
                     store.state.isSignIn = false
                     isSignIn.value = false
-                    return
-                }
-                if(res.status === '200'){
+                }}
+                else if(res.status === '200'){
                     store.state.isSignIn = true
                     userName.value = res.result.userName
+                }
+                else{
+                    console.log('judgeExpiredOthersResponse:'+res)
+                    store.state.isSignIn = false
+                    isSignIn.value = false
                 }
             }
             catch(err) {

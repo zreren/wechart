@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+* {
+  font-family: cursive;
+}
 .container{
   user-select: none;
   margin-top: 5vh;

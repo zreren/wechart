@@ -1,22 +1,19 @@
 <template>
   <div class="container">
       <!-- inpput框 -->
-    <div class="imput">
+    <div class="input">
       <!-- <div class="title">
             作者名字:
             <el-input v-model="userName" size="mini" style="width:35vw;"></el-input>
         </div> -->
         <div class="title">
-            
             <el-input v-model="title" size="middle" style="width:80%;" placeholder="輸入您的文章标题"></el-input>
-              <el-button @click="editorSubmit" type="primary" style=" width:20%;height=30px;margin=30px">提交</el-button>
+            <el-button  @click="editorSubmit" :disabled="btnDisable"  type="primary" style=" width:20%;height=30px;margin=30px">提交</el-button>
         </div>
-        <!-- <div style="display:flex">
-        <div  class="title">
-            标题内容:
-            <el-input v-model="content" size="mini" style="width:35vw;"></el-input>
+        <div class="content">
+            <el-input  placeholder="輸入您的文章简介" v-model="content" size="mini" ></el-input>
         </div>
-      
+      <!-- 
         <div  class="title">
           文章封面:
             <el-input v-model="img_url" size="mini" style="width:35vw;"></el-input>
@@ -51,6 +48,7 @@
         <div id="editor"></div>
     </div>
   </div>
+  <writing-upload-img  v-if="uploadImg" />
 </template>
 
 <script>
@@ -58,7 +56,11 @@ import { ElMessage } from 'element-plus';
 import { SubEditor}  from "../api/Expliore"
 import xss from 'xss'
 import Editor from 'wangeditor'
-import {onMounted, reactive, toRefs,} from "vue"
+import {onMounted, reactive, ref, toRefs, watch, provide} from "vue"
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import judgeExpired from '../http/judgeExpired'
+import WritingUploadImg from '../components/Writing/WritingUploadImg.vue';
 
 export default {  
   data () {
@@ -122,8 +124,24 @@ export default {
     }
   },
   components: {
+    WritingUploadImg
   },
   setup(){
+        const store = useStore()
+        const router = useRouter()
+        const uploadImg = ref(false)
+        const btnDisable = ref(false)
+
+
+
+        window.onbeforeunload=function(e){     
+          e = e || window.event;
+          if (e) {
+              // 兼容IE8和Firefox 4之前的版本
+              e.returnValue = "当前内容未保存，确认离开？";
+          }
+          return "当前内容未保存，确认离开？";
+        }
         //獲取用戶名
         // const isSignIn = ref(false)
         // const userName = ref('')
@@ -184,10 +202,45 @@ export default {
       editor.config.onCatalogChange = function (headList){
         infoData.tagArr=headList
       }
+      editor.config.uploadImgShowBase64 = true
       editor.create()
     });
-    const editorSubmit=()=>{
-      if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
+    const editorSubmit = async()=>{
+      btnDisable.value = true
+      try{
+            const res = await judgeExpired({token:localStorage.getItem('token')})
+            if(res.status === '403')
+            {
+                if(res.result)
+                if(res.result.data)
+                if(res.result.data.message === 'jwt expired'){
+                ElMessage.warning('登陆过期了哦')
+                store.state.isSignIn = false
+                return
+            }}
+            else if(res.status === '200') infoData.author = res.result.userName
+            else store.state.isSignIn = false
+          }
+          catch(err) {
+              ElMessage.error('出错啦！')
+              return
+          }
+      uploadImg.value = true
+    }
+    /**
+     * 父子组件传值
+     */
+    const url = ref('')
+    function geturl(str) {
+      url.value = str
+    }
+    provide('geturl',geturl)
+    watch(()=>url.value,()=>{
+      btnDisable.value = false
+      if(url.value != 'x') {
+        infoData.img_url = url.value
+        
+        if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
           // text_main:infoData.content,
           author:xss(infoData.author),
@@ -202,21 +255,26 @@ export default {
           ElMessage.success({
             message: '文章提交成功！',
             })
+          router.push('/explore')
         }).catch(()=>{
           ElMessage.error({
             message: '后台接口连接错误~',
             })
         })
-      }else{
-           ElMessage.warning({
-          message: '请填写完整文章内容~',
-        });
+        }else{
+            ElMessage.warning({
+            message: '请填写完整文章内容~',
+          });
+        }
+
       }
-    }
-    
+    })
+
     return{
       editorSubmit,
-      ...toRefs(infoData)
+      ...toRefs(infoData),
+      uploadImg,
+      btnDisable
     }
   }
   
@@ -228,20 +286,9 @@ export default {
     width: 80%;
     margin: 2vh auto;
     text-align: left;
-    .input{
-      display: flex;
-      flex-wrap: wrap;
-      justify-content:center;
-        .title{
-        display: flex;
-        margin: 10px;
-        padding: 10px;
-        el-input{
-          display: block;
-          padding: 8px;
-        }
+    .content {
+      margin-top: 10px;
     }
-    }
-  
+
 }
 </style>

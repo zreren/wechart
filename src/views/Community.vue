@@ -376,7 +376,7 @@ export default {
       height: 45%;
       min-height: 300px;
       width: 22%;
-      min-width: 300px;
+      min-width: 250px;
       .viewimg {
         display: flex;
         justify-content: center;

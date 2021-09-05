@@ -239,7 +239,6 @@ export default {
       btnDisable.value = false
       if(url.value != 'x') {
         infoData.img_url = url.value
-        
         if(infoData.author&&infoData.title&&infoData.content&&infoData.c_type&&infoData.img_url&&infoData.pic_type&&infoData.content_main!=""){
         SubEditor({
           // text_main:infoData.content,
@@ -266,7 +265,10 @@ export default {
             message: '请填写完整文章内容~',
           });
         }
-
+      }
+      else {
+        btnDisable.value = false
+        uploadImg.value = false
       }
     })
 
@@ -289,6 +291,6 @@ export default {
     .content {
       margin-top: 10px;
     }
-
+    
 }
 </style>

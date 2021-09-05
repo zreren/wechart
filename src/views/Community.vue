@@ -312,7 +312,6 @@ export default {
       height: 100%;
       width: 60%;
       display: inline-block;
-      height: 50px;
       ul {
         .liStyle {
           list-style: none;

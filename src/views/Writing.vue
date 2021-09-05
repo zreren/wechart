@@ -291,6 +291,6 @@ export default {
     .content {
       margin-top: 10px;
     }
-
+    
 }
 </style>

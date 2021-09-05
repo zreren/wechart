@@ -27,7 +27,7 @@ export default {
 .upload {
   position: fixed;
   cursor: pointer;
-  bottom: 60px;
+  top: 180px;
   right: 60px;
   width: 65px;
   transition: .8s;

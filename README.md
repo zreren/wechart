@@ -1,7 +1,7 @@
 # wechart
 
 可视化Chart制作平台+社区
-
+演示文档：https://vue.web.cloudendpoint.cn/
 
 ## Project setup
 ```
